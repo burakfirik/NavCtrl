@@ -13,18 +13,19 @@
 @end
 
 @implementation CompanyVC
+ NSArray *imageNames = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+  imageNames = @[@"img-companyLogo_Apple", @"img-companyLogo_Tesla", @"img-companyLogo_Google", @"img-companyLogo_Twitter"];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
     self.navigationItem.rightBarButtonItem = editButton;
     
     
-    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices", @"Tesla Motors", @"AMD"];
-    self.title = @"Companies";
+    self.companyList = @[@"Apple",@"Tesla", @"Google", @"Twitter"];
+    self.title = @"Watch List";
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -72,7 +73,7 @@
     // Configure the cell...
     
     cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
-    
+   cell.imageView.image = [UIImage imageNamed:imageNames[indexPath.row]];
     return cell;
 }
 
@@ -125,13 +126,13 @@
     
     self.productViewController = [[ProductVC alloc]init];
     if (indexPath.row == 0){
-        self.productViewController.title = @"Apple mobile devices";
+        self.productViewController.title = @"Apple";
     } else if (indexPath.row == 1){
-        self.productViewController.title = @"Samsung mobile devices";
+        self.productViewController.title = @"Tesla";
     } else if (indexPath.row == 2) {
-      self.productViewController.title = @"Tesla Motors";
+        self.productViewController.title = @"Google";
     } else  {
-      self.productViewController.title = @"AMD";
+        self.productViewController.title = @"Twitter";
     }
     
     [self.navigationController
