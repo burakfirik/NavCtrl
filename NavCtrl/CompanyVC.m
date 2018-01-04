@@ -127,7 +127,7 @@
 {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     // Delete the row from the data source
-    [self.dataAccessObject.companyList removeObject:indexPath.row];
+    [self.dataAccessObject.companyList removeObjectAtIndex:indexPath.row];
     [self.tableView reloadData];
   }
 }
