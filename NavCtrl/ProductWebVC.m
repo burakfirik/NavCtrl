@@ -7,6 +7,7 @@
 //
 
 #import "ProductWebVC.h"
+#import <WebKit/WebKit.h>
 
 @interface ProductWebVC ()
 
@@ -17,6 +18,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+  WKWebViewConfiguration *conf = [[WKWebViewConfiguration alloc] init];
+  WKWebView* productView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:conf];
+  
+  NSMutableURLRequest *req = [[NSMutableURLRequest alloc] init];
+  req.URL = [NSURL URLWithString:self.url];
+  
+  if (req.URL == nil) {
+    req.URL = [NSURL URLWithString:@"https://www.apple.com"];
+  }
+
+  NSURLRequest *productRequest = [NSURLRequest requestWithURL:req.URL]
+  
+  [productView loadRequest:productRequest];
+  [self.view addSubview:productView];
+  
 }
 
 - (void)didReceiveMemoryWarning {
