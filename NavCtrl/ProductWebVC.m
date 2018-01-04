@@ -28,7 +28,7 @@
     req.URL = [NSURL URLWithString:@"https://www.apple.com"];
   }
 
-  NSURLRequest *productRequest = [NSURLRequest requestWithURL:req.URL]
+  NSURLRequest *productRequest = [NSURLRequest requestWithURL:req.URL];
   
   [productView loadRequest:productRequest];
   [self.view addSubview:productView];
