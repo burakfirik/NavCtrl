@@ -8,6 +8,8 @@
 
 #import "ProductVC.h"
 #import "Product.h"
+#import "ProductWebVC.h"
+
 
 
 @interface ProductVC ()
@@ -20,20 +22,37 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithTitle:@"+" style:UIBarButtonItemStylePlain target:self action:@selector(addProductTapped)];
-  self.navigationItem.rightBarButtonItem = addButton;
+  UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
   
-  
-  
-  
+  UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)];
+  //self.navigationItem.rightBarButtonItem = editButton;
+  self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, addButton, nil];
   // Do any additional setup after loading the view from its nib.
+  self.dataAccessObject = [CompanyDao sharedManager];
+  self.tableView.allowsSelectionDuringEditing = YES;
 }
-- (void) addProductTapped {
-  NSLog(@"selam");
-}
+
 - (void)viewWillAppear:(BOOL)animated {
-  
- 
+  [super viewWillAppear:animated];
+  self.dataAccessObject.productAdd = NO;
+  self.dataAccessObject.companyAdd = NO;
+  self.dataAccessObject.productEdit = NO;
+  self.dataAccessObject.companyEdit = NO;
+  [self.tableView reloadData];
+}
+
+-(void) toggleEditMode {
+  if (self.tableView.editing) {
+    [self.tableView setEditing:NO animated: YES];
+    self.navigationItem.rightBarButtonItem.title = @"Edit";
+  } else {
+    [self.tableView setEditing:YES animated:NO];
+    self.navigationItem.rightBarButtonItem.title = @"Done";
+  }
+}
+
+-(void)addButtonTapped {
+  self.dataAccessObject.productAdd = YES;
 }
 
 
@@ -55,7 +74,7 @@
 {
 #warning Incomplete method implementation.
   // Return the number of rows in the section.
-  return [self.products count];
+  return [self.company.products count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,8 +84,12 @@
   if (cell == nil) {
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
   }
+  
+  Product * product = [self.company.products objectAtIndex:indexPath.row];
+  
   // Configure the cell...
-  cell.textLabel.text = [self.products objectAtIndex:[indexPath row]];
+  cell.textLabel.text = product.productName;
+  cell.imageView.image = product.productImage;
   
   return cell;
 }
@@ -86,8 +109,8 @@
 {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     // Delete the row from the data source
-    [self.products removeObjectAtIndex:indexPath.row];
-    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.company.products removeObjectAtIndex:indexPath.row];
+    [self.tableView reloadData];
   }
   else if (editingStyle == UITableViewCellEditingStyleInsert) {
     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -102,14 +125,14 @@
  }
  */
 
-/*
+
  // Override to support conditional rearranging of the table view.
  - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the item to be re-orderable.
  return YES;
  }
- */
+ 
 
 
 #pragma mark - Table view delegate
@@ -119,10 +142,10 @@
 {
   
   
-//  self.productDetailViewController = [[ProductDetailViewController alloc]init];
-//  self.productDetailViewController.productURL = self.productURL[indexPath.row];
-//
-//  [self.navigationController pushViewController:self.productDetailViewController animated:YES];
+  //  self.productDetailViewController = [[ProductDetailViewController alloc]init];
+  //  self.productDetailViewController.productURL = self.productURL[indexPath.row];
+  //
+  //  [self.navigationController pushViewController:self.productDetailViewController animated:YES];
 }
 
 
