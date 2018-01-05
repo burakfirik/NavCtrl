@@ -145,6 +145,9 @@
   //  self.productDetailViewController.productURL = self.productURL[indexPath.row];
   //
   //  [self.navigationController pushViewController:self.productDetailViewController animated:YES];
+    
+   
+    
 }
 
 

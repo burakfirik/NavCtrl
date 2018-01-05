@@ -16,4 +16,8 @@
 -(instancetype) initName: (NSString*) name
             downloadLogo: logo;
 
+-(instancetype) initWithName: (NSString*) name
+                stockTick: (NSString*) stock
+                downloadURL: (NSString*) url;
+
 @end

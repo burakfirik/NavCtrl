@@ -29,4 +29,15 @@
 }
 
 
+-(instancetype) initWithName: (NSString*) name
+                   stockTick: (NSString*) stock
+                 downloadURL: (NSString*) url {
+    
+    self.name = name;
+    self.products = [[NSMutableArray alloc] init];
+    self.logo = [UIImage imageNamed:@"google"];
+    return self;
+}
+
+
 @end
