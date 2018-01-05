@@ -25,6 +25,7 @@
 		9E62FF261E4A33F1002D55B8 /* ProductVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E62FF241E4A33F1002D55B8 /* ProductVC.m */; };
 		9E62FF271E4A33F1002D55B8 /* ProductVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E62FF251E4A33F1002D55B8 /* ProductVC.xib */; };
 		9E62FF291E4A3982002D55B8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E62FF281E4A3982002D55B8 /* Launch Screen.storyboard */; };
+		AA66997320001BD8005F9837 /* ProductAddVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA66997220001BD8005F9837 /* ProductAddVC.m */; };
 		AAA5DEF21FFFDA2A00254A93 /* CompanyAddVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA5DEF01FFFDA2A00254A93 /* CompanyAddVC.m */; };
 		AAA5DEF31FFFDA2A00254A93 /* CompanyAddVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA5DEF11FFFDA2A00254A93 /* CompanyAddVC.xib */; };
 		AE7512D11FFD65F300F6217C /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7512D01FFD65F300F6217C /* Company.m */; };
@@ -68,6 +69,8 @@
 		9E62FF241E4A33F1002D55B8 /* ProductVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductVC.m; sourceTree = "<group>"; };
 		9E62FF251E4A33F1002D55B8 /* ProductVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductVC.xib; sourceTree = "<group>"; };
 		9E62FF281E4A3982002D55B8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		AA66997120001BD8005F9837 /* ProductAddVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductAddVC.h; sourceTree = "<group>"; };
+		AA66997220001BD8005F9837 /* ProductAddVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductAddVC.m; sourceTree = "<group>"; };
 		AAA5DEEF1FFFDA2A00254A93 /* CompanyAddVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyAddVC.h; sourceTree = "<group>"; };
 		AAA5DEF01FFFDA2A00254A93 /* CompanyAddVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyAddVC.m; sourceTree = "<group>"; };
 		AAA5DEF11FFFDA2A00254A93 /* CompanyAddVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyAddVC.xib; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 			children = (
 				9E62FF231E4A33F1002D55B8 /* ProductVC.h */,
 				9E62FF241E4A33F1002D55B8 /* ProductVC.m */,
+				AA66997120001BD8005F9837 /* ProductAddVC.h */,
+				AA66997220001BD8005F9837 /* ProductAddVC.m */,
 			);
 			name = ProductViewController;
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 			files = (
 				AE8A1B7C1FFD690A00611A1E /* Product.m in Sources */,
 				AE8A1B821FFDE06000611A1E /* ProductWebVC.m in Sources */,
+				AA66997320001BD8005F9837 /* ProductAddVC.m in Sources */,
 				9E62FF211E4A33DC002D55B8 /* CompanyVC.m in Sources */,
 				AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */,
 				AE7512D11FFD65F300F6217C /* Company.m in Sources */,

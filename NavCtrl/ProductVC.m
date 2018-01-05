@@ -3,6 +3,7 @@
 #import "ProductVC.h"
 #import "Product.h"
 #import "ProductWebVC.h"
+#import "ProductAddVC.h"
 
 @interface ProductVC ()
 
@@ -43,6 +44,12 @@
 
 -(void)addButtonTapped {
   self.dataAccessObject.productAdd = YES;
+    ProductAddVC *productAddVC = [[ProductAddVC alloc] init];
+    
+    productAddVC.company = self.company;
+    
+    [self.navigationController pushViewController:productAddVC animated:true];
+    
 }
 
 
