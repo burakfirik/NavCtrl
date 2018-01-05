@@ -1,10 +1,4 @@
-//
-//  CompanyVC.m
-//  NavCtrl
-//
-//  Created by Jesse Sahli on 2/7/17.
-//  Copyright © 2017 Aditya Narayan. All rights reserved.
-//
+
 
 #import "CompanyVC.h"
 #import "Product.h"
@@ -169,12 +163,13 @@
   }
   
   self.productViewController = [[ProductVC alloc]init];
+  //self.productVC = [[ProductViewController alloc] init];
   Company* company = [self.dataAccessObject.companyList objectAtIndex:indexPath.row];
-  self.productViewController.company = company;
+   self.productViewController.company = company;
+  //self.productVC.company = company;
   [self.navigationController
    pushViewController:self.productViewController
    animated:YES];
-  
 }
 
 

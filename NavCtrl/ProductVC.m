@@ -1,24 +1,14 @@
-//
-//  ProductVC.m
-//  NavCtrl
-//
-//  Created by Jesse Sahli on 2/7/17.
-//  Copyright © 2017 Aditya Narayan. All rights reserved.
-//
+
 
 #import "ProductVC.h"
 #import "Product.h"
 #import "ProductWebVC.h"
-
-
 
 @interface ProductVC ()
 
 @end
 
 @implementation ProductVC
-
-
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -89,7 +79,16 @@
   
   // Configure the cell...
   cell.textLabel.text = product.productName;
+  //cell.imageView.frame = CGRectMake(cell.imageView.frame.origin.x, cell.imageView.frame.origin.y, 10,10);
+  UIImage *productImage = product.productImage;
+  
   cell.imageView.image = product.productImage;
+  cell.imageView.clipsToBounds = YES;
+  
+  UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, UIScreen.mainScreen.scale);
+  [cell.imageView.image drawInRect:CGRectMake(0.0, 0.0, 40,40)];
+  cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
   
   return cell;
 }
