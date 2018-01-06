@@ -9,8 +9,7 @@
 @interface CompanyVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) CompanyDao * dataAccessObject;
-
-@property (retain, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) UITableView *companyTableView;
 @property (nonatomic, retain) NSMutableArray *companyList;
 @property (nonatomic, retain) ProductVC *productViewController;
 @property (nonatomic, retain) CompanyAddVC *companyAddViewController;

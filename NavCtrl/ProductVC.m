@@ -16,11 +16,17 @@
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
   
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)];
+  
+  self.productTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
   //self.navigationItem.rightBarButtonItem = editButton;
   self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, addButton, nil];
   // Do any additional setup after loading the view from its nib.
   self.dataAccessObject = [CompanyDao sharedManager];
-  self.tableView.allowsSelectionDuringEditing = YES;
+  self.productTableView.delegate = self;
+  self.productTableView.dataSource = self;
+  self.productTableView.allowsSelectionDuringEditing = YES;
+  
+  [self.view addSubview:self.productTableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -29,15 +35,15 @@
   self.dataAccessObject.companyAdd = NO;
   self.dataAccessObject.productEdit = NO;
   self.dataAccessObject.companyEdit = NO;
-  [self.tableView reloadData];
+  [self.productTableView reloadData];
 }
 
 -(void) toggleEditMode {
-  if (self.tableView.editing) {
-    [self.tableView setEditing:NO animated: YES];
+  if (self.productTableView.editing) {
+    [self.productTableView setEditing:NO animated: YES];
     self.navigationItem.rightBarButtonItem.title = @"Edit";
   } else {
-    [self.tableView setEditing:YES animated:NO];
+    [self.productTableView setEditing:YES animated:NO];
     self.navigationItem.rightBarButtonItem.title = @"Done";
   }
 }
@@ -116,7 +122,7 @@
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     // Delete the row from the data source
     [self.company.products removeObjectAtIndex:indexPath.row];
-    [self.tableView reloadData];
+    [self.productTableView reloadData];
   }
   else if (editingStyle == UITableViewCellEditingStyleInsert) {
     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -161,7 +167,6 @@
 
 
 - (void)dealloc {
-  [_tableView release];
   [super dealloc];
 }
 @end
