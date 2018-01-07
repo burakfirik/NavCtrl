@@ -21,4 +21,20 @@
   return self;
 }
 
+-(void) editProduct: (NSString *)newName imgURL: (NSString *) imgUrl{
+  self.productName = newName;
+  NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imgUrl]];
+  UIImage *image = [[UIImage alloc] initWithData:imageData];
+  if (image != nil) {
+    self.productImage = image;
+  } else {
+    self.productImage = [UIImage imageNamed:@"default"];
+  }
+}
+
+-(void) editProduct: (NSString *)newName productURL: (NSString*) prodURL imgURL: (NSString *) imgURL  {
+  
+  
+}
+
 @end

@@ -1,8 +1,8 @@
 //
-//  ProductAddVC.h
+//  EditProductVC.h
 //  NavCtrl
 //
-//  Created by Aditya Narayan on 1/5/18.
+//  Created by Burak Firik on 1/7/18.
 //  Copyright © 2018 Aditya Narayan. All rights reserved.
 //
 
@@ -10,11 +10,11 @@
 #import "Product.h"
 #import "CompanyDao.h"
 #import "Company.h"
-
-@interface ProductAddVC : UIViewController<UITextFieldDelegate>
+@interface ProductEditVC : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) CompanyDao* dataAccessObject;
 @property (nonatomic, retain) NSMutableArray *companyList;
 @property (nonatomic, retain) Company *company;
+@property (nonatomic, assign) NSNumber *deleteIndex;
 
 @end

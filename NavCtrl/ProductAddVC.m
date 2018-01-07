@@ -69,7 +69,7 @@
   [self.topView addSubview:self.productNameTextField];
   [self.topView addSubview:self.productURLTextField];
   [self.topView addSubview:self.productImgURLTextField];
-  self.title = @"Add Company";
+  self.title = @"Add Product";
   
   
   [self.view addSubview:self.topView];
@@ -248,7 +248,7 @@
     NSLog(@"Sel");
     Product *prod = [[Product alloc] initName:prodName productURL:prodURL productImage:prodImgURL];
     [self.company.products addObject:prod];
-    self.cancelProductButtonTapped;
+     [self.navigationController popViewControllerAnimated:true];
   } else {
     // Alert to user to fill all the fields
   }

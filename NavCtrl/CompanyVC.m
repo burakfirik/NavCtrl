@@ -169,16 +169,18 @@
   if (self.companyTableView .isEditing) {
     self.dataAccessObject.companyEdit = YES;
     
+  } else {
+    self.productViewController = [[ProductVC alloc]init];
+    //self.productVC = [[ProductViewController alloc] init];
+    Company* company = [self.dataAccessObject.companyList objectAtIndex:indexPath.row];
+    self.productViewController.company = company;
+    //self.productVC.company = company;
+    [self.navigationController
+     pushViewController:self.productViewController
+     animated:YES];
   }
   
-  self.productViewController = [[ProductVC alloc]init];
-  //self.productVC = [[ProductViewController alloc] init];
-  Company* company = [self.dataAccessObject.companyList objectAtIndex:indexPath.row];
-  self.productViewController.company = company;
-  //self.productVC.company = company;
-  [self.navigationController
-   pushViewController:self.productViewController
-   animated:YES];
+  
 }
 
 

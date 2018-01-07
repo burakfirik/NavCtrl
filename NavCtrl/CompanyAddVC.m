@@ -249,7 +249,7 @@
     NSLog(@"Sel");
     Company *comp = [[Company alloc] initWithName:comName stockTick:comStock downloadURL:compImgURL];
     [self.dataAccessObject.companyList addObject:comp];
-    self.cancelButtonTapped;
+   [self.navigationController popViewControllerAnimated:true];
   } else {
     // Alert to user to fill all the fields
   }

@@ -4,6 +4,8 @@
 #import "Product.h"
 #import "ProductWebVC.h"
 #import "ProductAddVC.h"
+#import "ProductEdit.h"
+
 
 @interface ProductVC ()
 
@@ -50,12 +52,12 @@
 
 -(void)addButtonTapped {
   self.dataAccessObject.productAdd = YES;
-    ProductAddVC *productAddVC = [[ProductAddVC alloc] init];
-    
-    productAddVC.company = self.company;
-    
-    [self.navigationController pushViewController:productAddVC animated:true];
-    
+  ProductAddVC *productAddVC = [[ProductAddVC alloc] init];
+  
+  productAddVC.company = self.company;
+  
+  [self.navigationController pushViewController:productAddVC animated:true];
+  
 }
 
 
@@ -93,7 +95,7 @@
   // Configure the cell...
   cell.textLabel.text = product.productName;
   //cell.imageView.frame = CGRectMake(cell.imageView.frame.origin.x, cell.imageView.frame.origin.y, 10,10);
-  UIImage *productImage = product.productImage;
+  
   
   cell.imageView.image = product.productImage;
   cell.imageView.clipsToBounds = YES;
@@ -138,13 +140,13 @@
  */
 
 
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- 
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  // Return NO if you do not want the item to be re-orderable.
+  return YES;
+}
+
 
 
 #pragma mark - Table view delegate
@@ -152,15 +154,25 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  self.productEditViewController = [[ProductEditVC alloc]init];
+  
+  if (self.productTableView .isEditing) {
+    self.dataAccessObject.productEdit = YES;
+    self.productEditViewController.company = self.company;
+    self.productEditViewController.deleteIndex = [[NSNumber alloc] initWithInt:indexPath.row];
+    [self.navigationController pushViewController:self.productEditViewController animated:true];
+  } else {
+    //
+    //    //self.productVC = [[ProductViewController alloc] init];
+    //
+    //    self.productViewController.company = company;
+    //    //self.productVC.company = company;
+    //    [self.navigationController
+    //     pushViewController:self.productViewController
+    //     animated:YES];
+  }
   
   
-  //  self.productDetailViewController = [[ProductDetailViewController alloc]init];
-  //  self.productDetailViewController.productURL = self.productURL[indexPath.row];
-  //
-  //  [self.navigationController pushViewController:self.productDetailViewController animated:YES];
-    
-   
-    
 }
 
 

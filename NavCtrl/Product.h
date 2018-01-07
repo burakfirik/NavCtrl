@@ -15,4 +15,6 @@
 - (instancetype) initName: (NSString*) givenName
                      logo: (UIImage*) productLogo;
 
+-(void) editProduct: (NSString *)newName imgURL: (NSString *) url ;
+
 @end

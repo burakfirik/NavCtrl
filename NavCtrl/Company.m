@@ -8,15 +8,18 @@
 
 #import "Company.h"
 
+
 @implementation Company
 
 - (instancetype) initName:(NSString *)nameGiven
                      logo:(NSString *)logoGiven
-                 products:(NSMutableArray *)productsGiven {
+                 products:(NSMutableArray *)productsGiven
+                    stock: (NSString*) stockTick {
   if (self = [super init]) {
     self.name = nameGiven;
     self.logo = [UIImage imageNamed:logoGiven];
     self.products = productsGiven;
+    self.stockTick = stockTick;
   }
   return self;
 }
@@ -38,6 +41,8 @@
     self.logo = [UIImage imageNamed:@"google"];
     return self;
 }
+
+
 
 
 @end
