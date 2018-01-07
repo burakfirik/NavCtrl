@@ -29,6 +29,7 @@
 		AE8A1B7C1FFD690A00611A1E /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B7B1FFD690A00611A1E /* Product.m */; };
 		AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */; };
 		AE8A1B821FFDE06000611A1E /* ProductWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B811FFDE06000611A1E /* ProductWebVC.m */; };
+		AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632520023D1300F45B43 /* ProductEditVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,8 @@
 		AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDao.m; sourceTree = "<group>"; };
 		AE8A1B801FFDE06000611A1E /* ProductWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductWebVC.h; sourceTree = "<group>"; };
 		AE8A1B811FFDE06000611A1E /* ProductWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductWebVC.m; sourceTree = "<group>"; };
+		AEE7632420023D1300F45B43 /* ProductEdit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductEdit.h; sourceTree = "<group>"; };
+		AEE7632520023D1300F45B43 /* ProductEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductEditVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +132,8 @@
 				9E62FF241E4A33F1002D55B8 /* ProductVC.m */,
 				AA66997120001BD8005F9837 /* ProductAddVC.h */,
 				AA66997220001BD8005F9837 /* ProductAddVC.m */,
+				AEE7632420023D1300F45B43 /* ProductEdit.h */,
+				AEE7632520023D1300F45B43 /* ProductEditVC.m */,
 			);
 			name = ProductViewController;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 				AE8A1B821FFDE06000611A1E /* ProductWebVC.m in Sources */,
 				AA66997320001BD8005F9837 /* ProductAddVC.m in Sources */,
 				9E62FF211E4A33DC002D55B8 /* CompanyVC.m in Sources */,
+				AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */,
 				AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */,
 				AE7512D11FFD65F300F6217C /* Company.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
