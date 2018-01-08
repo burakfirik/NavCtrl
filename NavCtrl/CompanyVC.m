@@ -6,6 +6,7 @@
 
 
 
+
 @interface CompanyVC ()
 
 @end
@@ -26,7 +27,7 @@
   self.navigationItem.leftBarButtonItem.enabled = NO;
   
   self.dataAccessObject = [CompanyDao sharedManager];
-  
+  self.companyList = self.dataAccessObject.companyList;
   
   self.companyTableView .allowsSelectionDuringEditing = YES;
   self.companyTableView.delegate = self;
@@ -168,6 +169,9 @@
   
   if (self.companyTableView .isEditing) {
     self.dataAccessObject.companyEdit = YES;
+    self.companyEditVC = [[CompanyEditVC alloc] init];
+    self.companyEditVC.company = [self.companyList objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:self.companyEditVC animated:true];
     
   } else {
     self.productViewController = [[ProductVC alloc]init];

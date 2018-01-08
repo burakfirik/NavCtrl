@@ -4,8 +4,8 @@
 #import "Product.h"
 #import "ProductWebVC.h"
 #import "ProductAddVC.h"
-#import "ProductEdit.h"
-
+#import "ProductEditVC.h"
+#import "WebViewEditVC.h"
 
 @interface ProductVC ()
 
@@ -127,7 +127,8 @@
     [self.productTableView reloadData];
   }
   else if (editingStyle == UITableViewCellEditingStyleInsert) {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+   
+    
   }
 }
 
@@ -162,14 +163,11 @@
     self.productEditViewController.deleteIndex = [[NSNumber alloc] initWithInt:indexPath.row];
     [self.navigationController pushViewController:self.productEditViewController animated:true];
   } else {
-    //
-    //    //self.productVC = [[ProductViewController alloc] init];
-    //
-    //    self.productViewController.company = company;
-    //    //self.productVC.company = company;
-    //    [self.navigationController
-    //     pushViewController:self.productViewController
-    //     animated:YES];
+    WebViewEditVC *webViewEditVC = [[WebViewEditVC alloc] init];
+    webViewEditVC.company = self.company;
+    webViewEditVC.productURL = [[self.company.products objectAtIndex:indexPath.row] productURL];
+    webViewEditVC.deleteIndex = [NSNumber numberWithInt:indexPath.row];
+    [self.navigationController pushViewController:webViewEditVC animated:true];
   }
   
   

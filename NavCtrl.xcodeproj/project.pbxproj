@@ -30,6 +30,8 @@
 		AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */; };
 		AE8A1B821FFDE06000611A1E /* ProductWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B811FFDE06000611A1E /* ProductWebVC.m */; };
 		AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632520023D1300F45B43 /* ProductEditVC.m */; };
+		AEE7632E2003D68300F45B43 /* CompanyEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632C2003D68300F45B43 /* CompanyEditVC.m */; };
+		AEE763332003E07E00F45B43 /* WebViewEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE763312003E07E00F45B43 /* WebViewEditVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,8 +79,12 @@
 		AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDao.m; sourceTree = "<group>"; };
 		AE8A1B801FFDE06000611A1E /* ProductWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductWebVC.h; sourceTree = "<group>"; };
 		AE8A1B811FFDE06000611A1E /* ProductWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductWebVC.m; sourceTree = "<group>"; };
-		AEE7632420023D1300F45B43 /* ProductEdit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductEdit.h; sourceTree = "<group>"; };
+		AEE7632420023D1300F45B43 /* ProductEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductEditVC.h; sourceTree = "<group>"; };
 		AEE7632520023D1300F45B43 /* ProductEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductEditVC.m; sourceTree = "<group>"; };
+		AEE7632B2003D68300F45B43 /* CompanyEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyEditVC.h; sourceTree = "<group>"; };
+		AEE7632C2003D68300F45B43 /* CompanyEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyEditVC.m; sourceTree = "<group>"; };
+		AEE763302003E07E00F45B43 /* WebViewEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewEditVC.h; sourceTree = "<group>"; };
+		AEE763312003E07E00F45B43 /* WebViewEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewEditVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,8 @@
 				9E62FF1F1E4A33DC002D55B8 /* CompanyVC.m */,
 				AAA5DEEF1FFFDA2A00254A93 /* CompanyAddVC.h */,
 				AAA5DEF01FFFDA2A00254A93 /* CompanyAddVC.m */,
+				AEE7632B2003D68300F45B43 /* CompanyEditVC.h */,
+				AEE7632C2003D68300F45B43 /* CompanyEditVC.m */,
 			);
 			name = ParentViewController;
 			sourceTree = "<group>";
@@ -132,8 +140,10 @@
 				9E62FF241E4A33F1002D55B8 /* ProductVC.m */,
 				AA66997120001BD8005F9837 /* ProductAddVC.h */,
 				AA66997220001BD8005F9837 /* ProductAddVC.m */,
-				AEE7632420023D1300F45B43 /* ProductEdit.h */,
+				AEE7632420023D1300F45B43 /* ProductEditVC.h */,
 				AEE7632520023D1300F45B43 /* ProductEditVC.m */,
+				AEE763302003E07E00F45B43 /* WebViewEditVC.h */,
+				AEE763312003E07E00F45B43 /* WebViewEditVC.m */,
 			);
 			name = ProductViewController;
 			sourceTree = "<group>";
@@ -339,11 +349,13 @@
 				AE8A1B7C1FFD690A00611A1E /* Product.m in Sources */,
 				AE8A1B821FFDE06000611A1E /* ProductWebVC.m in Sources */,
 				AA66997320001BD8005F9837 /* ProductAddVC.m in Sources */,
+				AEE763332003E07E00F45B43 /* WebViewEditVC.m in Sources */,
 				9E62FF211E4A33DC002D55B8 /* CompanyVC.m in Sources */,
 				AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */,
 				AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */,
 				AE7512D11FFD65F300F6217C /* Company.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
+				AEE7632E2003D68300F45B43 /* CompanyEditVC.m in Sources */,
 				AAA5DEF21FFFDA2A00254A93 /* CompanyAddVC.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
 				9E62FF261E4A33F1002D55B8 /* ProductVC.m in Sources */,

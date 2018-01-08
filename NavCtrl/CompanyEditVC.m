@@ -1,26 +1,33 @@
+//
+//  ProductAddVC.m
+//  NavCtrl
+//
+//  Created by Aditya Narayan on 1/5/18.
+//  Copyright © 2018 Aditya Narayan. All rights reserved.
+//
 
-#import "ProductEditVC.h"
+#import "CompanyEditVC.h"
 
-@interface ProductEditVC ()
+@interface CompanyEditVC ()
 
 @property (retain, nonatomic) UIView *topView;
-@property (retain, nonatomic) UITextField *productNameTextField;
-@property (retain, nonatomic) UITextField *productStockTextField;
-@property (retain, nonatomic) UITextField *productImgURLTextField;
+@property (retain, nonatomic) UITextField *companyNameTextField;
+@property (retain, nonatomic) UITextField *companyStockTickTextField;
+@property (retain, nonatomic) UITextField *companyImgURLTextField;
 @property (retain, nonatomic) UIButton *deleteButton;
 
 
 @property (nonatomic) CGFloat middleTop;
 @property (nonatomic) CGFloat bottomTop;
-@property (nonatomic) NSLayoutConstraint *productImgURLTextFieldLeadingContraints;
-@property (nonatomic) NSLayoutConstraint *productImgURLTextFieldTrailingContraints;
-@property (nonatomic) NSLayoutConstraint *productImgURLTextFieldTopContraints;
-@property (nonatomic) NSLayoutConstraint *productImgURLTextFieldBottomContraints;
+@property (nonatomic) NSLayoutConstraint *companyImgURLTextFieldLeadingContraints;
+@property (nonatomic) NSLayoutConstraint *companyImgURLTextFieldTrailingContraints;
+@property (nonatomic) NSLayoutConstraint *companyImgURLTextFieldTopContraints;
+@property (nonatomic) NSLayoutConstraint *companyImgURLTextFieldBottomContraints;
 
-@property (nonatomic) NSLayoutConstraint *productStockTextFieldLeadingContraints;
-@property (nonatomic) NSLayoutConstraint *productStockTextFieldTrailingContraints;
-@property (nonatomic) NSLayoutConstraint *productStockTextFieldTopContraints;
-@property (nonatomic) NSLayoutConstraint *productStockTextFieldBottomContraints;
+@property (nonatomic) NSLayoutConstraint *companyStockTickTextFieldLeadingContraints;
+@property (nonatomic) NSLayoutConstraint *companyStockTickTextFieldTrailingContraints;
+@property (nonatomic) NSLayoutConstraint *companyStockTickTextFieldTopContraints;
+@property (nonatomic) NSLayoutConstraint *companyStockTickTextFieldBottomContraints;
 
 @property (nonatomic) NSLayoutConstraint *deleteButtonLeadingContraints;
 @property (nonatomic) NSLayoutConstraint *deleteButtonTrailingContraints;
@@ -30,7 +37,7 @@
 
 @end
 
-@implementation ProductEditVC
+@implementation CompanyEditVC
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -40,8 +47,8 @@
   
   
   
-  UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveProductButtonTapped)];
-  UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelProductButtonTapped)];
+  UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveCompanyButtonTapped)];
+  UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelCompanyButtonTapped)];
   self.navigationItem.rightBarButtonItem = saveButton;
   self.navigationItem.leftBarButtonItem = cancelButton;
   self.dataAccessObject = [CompanyDao sharedManager];
@@ -59,25 +66,25 @@
   [self.deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
   
   
-  self.productStockTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
-  self.productImgURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
-  self.productNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
-  Product *prodToEdit = [self.company.products objectAtIndex:self.deleteIndex.integerValue];
-  self.productNameTextField.text = [prodToEdit productName];
-  self.productStockTextField.text = [self.company stockTick];
-  self.productImgURLTextField.text = [prodToEdit productURL];
+  self.companyStockTickTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
+  self.companyImgURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
+  self.companyNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
   
-  self.productNameTextField.delegate = self;
-  self.productStockTextField.delegate = self;
-  self.productImgURLTextField.delegate = self;
+  self.companyNameTextField.text = [self.company name];
+  self.companyStockTickTextField.text = [self.company stockTick];
+  self.companyImgURLTextField.text = @"Img Url";
   
-  self.productNameTextField.backgroundColor = [UIColor whiteColor];
-  self.productStockTextField.backgroundColor = [UIColor whiteColor];
-  self.productImgURLTextField.backgroundColor = [UIColor whiteColor];
+  self.companyNameTextField.delegate = self;
+  self.companyStockTickTextField.delegate = self;
+  self.companyImgURLTextField.delegate = self;
   
-  [self.topView addSubview:self.productNameTextField];
-  [self.topView addSubview:self.productStockTextField];
-  [self.topView addSubview:self.productImgURLTextField];
+  self.companyNameTextField.backgroundColor = [UIColor whiteColor];
+  self.companyStockTickTextField.backgroundColor = [UIColor whiteColor];
+  self.companyImgURLTextField.backgroundColor = [UIColor whiteColor];
+  
+  [self.topView addSubview:self.companyNameTextField];
+  [self.topView addSubview:self.companyStockTickTextField];
+  [self.topView addSubview:self.companyImgURLTextField];
   [self.topView addSubview:self.deleteButton];
   self.title = @"Edit Product";
   
@@ -86,14 +93,14 @@
   // Do any additional setup after loading the view from its nib.
   
   self.topView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.productNameTextField.translatesAutoresizingMaskIntoConstraints = NO;
-  self.productStockTextField.translatesAutoresizingMaskIntoConstraints = NO;
-  self.productImgURLTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  self.companyNameTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  self.companyStockTickTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  self.companyImgURLTextField.translatesAutoresizingMaskIntoConstraints = NO;
   self.deleteButton.translatesAutoresizingMaskIntoConstraints = NO;
   [self addTopViewConsraints];
-  [self addProductNameTextFieldContraints];
-  [self addProductStockTextFieldContraints: 250];
-  [self addProductImgURLTextFieldContraints:400];
+  [self addcompanyNameTextFieldContraints];
+  [self addcompanyStockTickTextFieldContraints: 250];
+  [self addcompanyImgURLTextFieldContraints:400];
   [self addDeleteButtonContraints];
   
   
@@ -135,111 +142,111 @@
   
 }
 
--(void) addProductNameTextFieldContraints {
-  NSLayoutConstraint *productNameTextField = [NSLayoutConstraint
-                                              constraintWithItem:self.productNameTextField
+-(void) addcompanyNameTextFieldContraints {
+  NSLayoutConstraint *companyNameTextField = [NSLayoutConstraint
+                                              constraintWithItem:self.companyNameTextField
                                               attribute:NSLayoutAttributeLeading
                                               relatedBy:NSLayoutRelationEqual
                                               toItem:self.topView
                                               attribute:NSLayoutAttributeLeading                                                        multiplier:1.0
                                               constant:30];
-  NSLayoutConstraint *productNameTextFieldTrailingContraints = [NSLayoutConstraint
-                                                                constraintWithItem:self.productNameTextField
+  NSLayoutConstraint *companyNameTextFieldTrailingContraints = [NSLayoutConstraint
+                                                                constraintWithItem:self.companyNameTextField
                                                                 attribute:NSLayoutAttributeTrailing
                                                                 relatedBy:NSLayoutRelationEqual
                                                                 toItem:self.topView
                                                                 attribute:NSLayoutAttributeTrailing                                                        multiplier:1.0
                                                                 constant:-30];
-  NSLayoutConstraint *productNameTextFieldTopContraints = [NSLayoutConstraint
-                                                           constraintWithItem:self.productNameTextField
+  NSLayoutConstraint *companyNameTextFieldTopContraints = [NSLayoutConstraint
+                                                           constraintWithItem:self.companyNameTextField
                                                            attribute:NSLayoutAttributeTop
                                                            relatedBy:NSLayoutRelationEqual
                                                            toItem:self.topView
                                                            attribute:NSLayoutAttributeTop                                                       multiplier:1.0
                                                            constant:self.navigationController.navigationBar.frame.size.height + 70];
-  NSLayoutConstraint *productNameTextFieldBottomContraints = [NSLayoutConstraint
-                                                              constraintWithItem:self.productNameTextField
+  NSLayoutConstraint *companyNameTextFieldBottomContraints = [NSLayoutConstraint
+                                                              constraintWithItem:self.companyNameTextField
                                                               attribute:NSLayoutAttributeHeight
                                                               relatedBy:NSLayoutRelationEqual
                                                               toItem:nil
                                                               attribute:NSLayoutAttributeHeight                                                       multiplier:0.0
                                                               constant:40];
   //[self.view addConstraints:];
-  [NSLayoutConstraint activateConstraints:@[productNameTextField, productNameTextFieldTrailingContraints,productNameTextFieldTopContraints, productNameTextFieldBottomContraints]];
+  [NSLayoutConstraint activateConstraints:@[companyNameTextField, companyNameTextFieldTrailingContraints,companyNameTextFieldTopContraints, companyNameTextFieldBottomContraints]];
   
 }
 
 
--(void) addProductStockTextFieldContraints:(CGFloat) middle {
+-(void) addcompanyStockTickTextFieldContraints:(CGFloat) middle {
   
-  self.productStockTextFieldLeadingContraints = [NSLayoutConstraint
-                                                 constraintWithItem:self.productStockTextField
-                                                 attribute:NSLayoutAttributeLeading
+  self.companyStockTickTextFieldLeadingContraints = [NSLayoutConstraint
+                                                     constraintWithItem:self.companyStockTickTextField
+                                                     attribute:NSLayoutAttributeLeading
+                                                     relatedBy:NSLayoutRelationEqual
+                                                     toItem:self.topView
+                                                     attribute:NSLayoutAttributeLeading                                                        multiplier:1.0
+                                                     constant:30];
+  self.companyStockTickTextFieldTrailingContraints = [NSLayoutConstraint
+                                                      constraintWithItem:self.companyStockTickTextField
+                                                      attribute:NSLayoutAttributeTrailing
+                                                      relatedBy:NSLayoutRelationEqual
+                                                      toItem:self.topView
+                                                      attribute:NSLayoutAttributeTrailing                                                        multiplier:1.0
+                                                      constant:-30];
+  self.companyStockTickTextFieldTopContraints = [NSLayoutConstraint
+                                                 constraintWithItem:self.companyStockTickTextField
+                                                 attribute:NSLayoutAttributeTop
                                                  relatedBy:NSLayoutRelationEqual
                                                  toItem:self.topView
-                                                 attribute:NSLayoutAttributeLeading                                                        multiplier:1.0
-                                                 constant:30];
-  self.productStockTextFieldTrailingContraints = [NSLayoutConstraint
-                                                  constraintWithItem:self.productStockTextField
-                                                  attribute:NSLayoutAttributeTrailing
-                                                  relatedBy:NSLayoutRelationEqual
-                                                  toItem:self.topView
-                                                  attribute:NSLayoutAttributeTrailing                                                        multiplier:1.0
-                                                  constant:-30];
-  self.productStockTextFieldTopContraints = [NSLayoutConstraint
-                                             constraintWithItem:self.productStockTextField
-                                             attribute:NSLayoutAttributeTop
-                                             relatedBy:NSLayoutRelationEqual
-                                             toItem:self.topView
-                                             attribute:NSLayoutAttributeTop                                                       multiplier:1.0
-                                             constant:middle];
+                                                 attribute:NSLayoutAttributeTop                                                       multiplier:1.0
+                                                 constant:middle];
   
-  self.productStockTextFieldBottomContraints = [NSLayoutConstraint
-                                                constraintWithItem:self.productStockTextField
-                                                attribute:NSLayoutAttributeHeight
-                                                relatedBy:NSLayoutRelationEqual
-                                                toItem:nil
-                                                attribute:NSLayoutAttributeHeight                                                       multiplier:0.0
-                                                constant:40];
+  self.companyStockTickTextFieldBottomContraints = [NSLayoutConstraint
+                                                    constraintWithItem:self.companyStockTickTextField
+                                                    attribute:NSLayoutAttributeHeight
+                                                    relatedBy:NSLayoutRelationEqual
+                                                    toItem:nil
+                                                    attribute:NSLayoutAttributeHeight                                                       multiplier:0.0
+                                                    constant:40];
   //[self.view addConstraints:];
-  [NSLayoutConstraint activateConstraints:@[self.productStockTextFieldLeadingContraints, self.productStockTextFieldTrailingContraints,self.productStockTextFieldTopContraints, self.productStockTextFieldBottomContraints]];
+  [NSLayoutConstraint activateConstraints:@[self.companyStockTickTextFieldLeadingContraints, self.companyStockTickTextFieldTrailingContraints,self.companyStockTickTextFieldTopContraints, self.companyStockTickTextFieldBottomContraints]];
   
 }
 
 
--(void) addProductImgURLTextFieldContraints: (CGFloat) top {
+-(void) addcompanyImgURLTextFieldContraints: (CGFloat) top {
   
-  self.productImgURLTextFieldLeadingContraints = [NSLayoutConstraint
-                                                  constraintWithItem:self.productImgURLTextField
+  self.companyImgURLTextFieldLeadingContraints = [NSLayoutConstraint
+                                                  constraintWithItem:self.companyImgURLTextField
                                                   attribute:NSLayoutAttributeLeading
                                                   relatedBy:NSLayoutRelationEqual
                                                   toItem:self.topView
                                                   attribute:NSLayoutAttributeLeading                                                        multiplier:1.0
                                                   constant:30];
-  self.productImgURLTextFieldTrailingContraints = [NSLayoutConstraint
-                                                   constraintWithItem:self.productImgURLTextField
+  self.companyImgURLTextFieldTrailingContraints = [NSLayoutConstraint
+                                                   constraintWithItem:self.companyImgURLTextField
                                                    attribute:NSLayoutAttributeTrailing
                                                    relatedBy:NSLayoutRelationEqual
                                                    toItem:self.topView
                                                    attribute:NSLayoutAttributeTrailing                                                        multiplier:1.0
                                                    constant:-30];
-  self.productImgURLTextFieldTopContraints = [NSLayoutConstraint
-                                              constraintWithItem:self.productImgURLTextField
+  self.companyImgURLTextFieldTopContraints = [NSLayoutConstraint
+                                              constraintWithItem:self.companyImgURLTextField
                                               attribute:NSLayoutAttributeTop
                                               relatedBy:NSLayoutRelationEqual
                                               toItem:self.topView
                                               attribute:NSLayoutAttributeTop                                                       multiplier:1.0
                                               constant:top];
   
-  self.productImgURLTextFieldBottomContraints = [NSLayoutConstraint
-                                                 constraintWithItem:self.productImgURLTextField
+  self.companyImgURLTextFieldBottomContraints = [NSLayoutConstraint
+                                                 constraintWithItem:self.companyImgURLTextField
                                                  attribute:NSLayoutAttributeHeight
                                                  relatedBy:NSLayoutRelationEqual
                                                  toItem:nil
                                                  attribute:NSLayoutAttributeHeight                                                       multiplier:0.0
                                                  constant:40];
   //[self.view addConstraints:];
-  [NSLayoutConstraint activateConstraints:@[self.productImgURLTextFieldLeadingContraints, self.productImgURLTextFieldTrailingContraints,self.productImgURLTextFieldTopContraints, self.productImgURLTextFieldBottomContraints]];
+  [NSLayoutConstraint activateConstraints:@[self.companyImgURLTextFieldLeadingContraints, self.companyImgURLTextFieldTrailingContraints,self.companyImgURLTextFieldTopContraints, self.companyImgURLTextFieldBottomContraints]];
   
 }
 
@@ -264,7 +271,7 @@
                                     constraintWithItem:self.deleteButton
                                     attribute:NSLayoutAttributeTop
                                     relatedBy:NSLayoutRelationEqual
-                                    toItem:self.productImgURLTextField
+                                    toItem:self.companyImgURLTextField
                                     attribute:NSLayoutAttributeBottom                                                       multiplier:1.0
                                     constant:20];
   
@@ -281,24 +288,22 @@
 }
 
 
--(void) cancelProductButtonTapped {
+-(void) cancelCompanyButtonTapped {
   [self.navigationController popViewControllerAnimated:true];
 }
 
 
 
--(void) saveProductButtonTapped {
-  NSString *prodName = [self.productNameTextField text];
-  NSString *prodStock = [self.productStockTextField text];
-  NSString *prodImgURL = [self.productImgURLTextField text];
+-(void) saveCompanyButtonTapped {
+  NSString *compName = [self.companyNameTextField text];
+  NSString *compStock = [self.companyStockTickTextField text];
+  NSString *compImgURL = [self.companyImgURLTextField text];
   
-  if (prodName != nil && prodStock != nil && prodImgURL != nil) {
+  if (compName != nil && compStock != nil &&compImgURL != nil) {
     NSLog(@"Sel");
-    Product *prod = [self.company.products objectAtIndex:self.deleteIndex.integerValue];
-    [prod editProduct:prodName imgURL:prodImgURL];
-//    [[Product alloc] initName:prodName productURL:prodStock productImage:prodImgURL];
-//    Prodi
-//    [ addObject:prod];
+    
+    Company *comp = self.company;
+    [comp editCompany:compName stock:compStock compURL:compImgURL];
     [self.navigationController popViewControllerAnimated:true];
   } else {
     // Alert to user to fill all the fields
@@ -327,11 +332,11 @@
   self.middleTop = 183;
   self.bottomTop = 250;
   
-  [NSLayoutConstraint deactivateConstraints:@[self.productImgURLTextFieldLeadingContraints, self.productImgURLTextFieldTrailingContraints,self.productImgURLTextFieldTopContraints, self.productImgURLTextFieldBottomContraints]];
-  [NSLayoutConstraint deactivateConstraints:@[self.productStockTextFieldLeadingContraints, self.productStockTextFieldTrailingContraints,self.productStockTextFieldTopContraints, self.productStockTextFieldBottomContraints]];
+  [NSLayoutConstraint deactivateConstraints:@[self.companyImgURLTextFieldLeadingContraints, self.companyImgURLTextFieldTrailingContraints,self.companyImgURLTextFieldTopContraints, self.companyImgURLTextFieldBottomContraints]];
+  [NSLayoutConstraint deactivateConstraints:@[self.companyStockTickTextFieldLeadingContraints, self.companyStockTickTextFieldTrailingContraints,self.companyStockTickTextFieldTopContraints, self.companyStockTickTextFieldBottomContraints]];
   
-  [self addProductStockTextFieldContraints:self.middleTop];
-  [self addProductImgURLTextFieldContraints:self.bottomTop];
+  [self addcompanyStockTickTextFieldContraints:self.middleTop];
+  [self addcompanyImgURLTextFieldContraints:self.bottomTop];
   [UIView animateWithDuration:0.7
                    animations:^{
                      [self.topView layoutIfNeeded]; // Called on parent view
@@ -347,7 +352,7 @@
 {
   // [self.addTopView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
   self.bottomTop = 400;
-  [self addProductImgURLTextFieldContraints:self.bottomTop];
+  [self addcompanyImgURLTextFieldContraints:self.bottomTop];
   [self.topView setNeedsLayout];
   
   NSLog(@"Keyboard is gone");
@@ -372,10 +377,11 @@
 
 - (void)dealloc {
   [_topView release];
-  [_productNameTextField release];
-  [_productStockTextField release];
-  [_productImgURLTextField release];
+  [_companyNameTextField release];
+  [_companyStockTickTextField release];
+  [_companyImgURLTextField release];
   [super dealloc];
 }
 @end
+
 

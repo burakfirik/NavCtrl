@@ -4,7 +4,7 @@
 //#import "ProductDetailViewController.h"
 #import "Company.h"
 #import "CompanyDao.h"
-#import "ProductEdit.h"
+#import "ProductEditVC.h"
 
 @interface ProductVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, retain) NSMutableArray *products;

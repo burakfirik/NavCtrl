@@ -4,6 +4,7 @@
 #import "ProductVC.h"
 #import "CompanyDao.h"
 #import "CompanyAddVC.h"
+#import "CompanyEditVC.h"
 
 
 @interface CompanyVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
@@ -13,6 +14,7 @@
 @property (nonatomic, retain) NSMutableArray *companyList;
 @property (nonatomic, retain) ProductVC *productViewController;
 @property (nonatomic, retain) CompanyAddVC *companyAddViewController;
+@property (nonatomic, retain) CompanyEditVC *companyEditVC;
 
 
 @property (nonatomic, retain) NSMutableArray* appleProducts;
