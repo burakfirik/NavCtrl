@@ -3,18 +3,23 @@
 #import "CompanyVC.h"
 #import "Product.h"
 #import "Company.h"
-
-
-
+#import "StockFetcher.h"
+#import "StockVC.h"
 
 @interface CompanyVC ()
-
+@property (strong, nonatomic) StockFetcher *stockFetcher;
+@property (strong, nonatomic) NSMutableArray *stockPrices;
 @end
 
 @implementation CompanyVC
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  self.stockFetcher = [[StockFetcher alloc]init];
+  self.stockFetcher.delegate = self;
+  
+  
   
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
   
@@ -28,22 +33,57 @@
   
   self.dataAccessObject = [CompanyDao sharedManager];
   self.companyList = self.dataAccessObject.companyList;
+  [self loadStockPrices];
   
   self.companyTableView .allowsSelectionDuringEditing = YES;
   self.companyTableView.delegate = self;
   self.companyTableView.dataSource = self;
+  
   
   [self.view addSubview:self.companyTableView];
   
   self.title = @"Watch List";
   
 }
+
+-(NSString*) getStocksString {
+  NSMutableString *tickers = [[NSMutableString alloc] init];
+  NSMutableArray* companyList = [[CompanyDao sharedManager] companyList];
+  for (int i = 0; i < companyList.count; i++) {
+    Company* currentCompany = companyList[i];
+    if (i == companyList.count - 1){
+      if ([currentCompany.stockTick isEqualToString:@""]){
+        [tickers appendFormat: @""];
+      } else {
+        [tickers appendFormat:@"%@", currentCompany.stockTick];
+      }
+    } else {
+      if ([currentCompany.stockTick isEqualToString:@""]){
+        [tickers appendFormat: @""];
+      } else {
+        [tickers appendFormat:@"%@,", currentCompany.stockTick];
+      }
+    }
+  }
+  return [[NSString alloc] initWithString:tickers];
+}
+
+-(void) loadStockPrices {
+  //  NSString *tickerSymbol = self.tickerTextField.text;
+  //  [self.stockFetcher fetchStockPriceForTicker:tickerSymbol];
+  NSString* ticks = [self getStocksString];
+  self.stockFetcher.companyTableView = self.companyTableView;
+  [self.stockFetcher fetchStockPriceForTicker:ticks];
+  
+}
+
 -(void) viewWillAppear:(BOOL)animated {
   self.dataAccessObject.productAdd = NO;
   self.dataAccessObject.companyAdd = NO;
   self.dataAccessObject.productEdit = NO;
   self.dataAccessObject.companyEdit = NO;
   [self.companyTableView  reloadData];
+  [self loadStockPrices];
   
 }
 
@@ -96,7 +136,7 @@
   static NSString *CellIdentifier = @"Cell";
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
   }
   
   Company* company = [self.dataAccessObject.companyList objectAtIndex:indexPath.row];
@@ -111,10 +151,68 @@
   cell.imageView.image = companyImage;
   cell.imageView.clipsToBounds = YES;
   cell.imageView.frame = CGRectMake(0, 0, 40, 40);
+  if (indexPath.row < self.stockPrices.count) {
+    cell.detailTextLabel.text = [[self.stockPrices  objectAtIndex:indexPath.row] stringValue];
+    [cell.detailTextLabel setTextColor: [UIColor grayColor]];
+  }
+  cell.showsReorderControl = YES;
   
+  cell.preservesSuperviewLayoutMargins = false;
+  cell.separatorInset = UIEdgeInsetsZero;
+  cell.layoutMargins = UIEdgeInsetsZero;
   return cell;
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+  //  [self.tickerTextField resignFirstResponder];
+}
+
+
+#pragma mark Required Delegate Methods
+//
+//-(void)stockFetchSuccessWithPriceString: (NSString*) priceString rowIndex: (NSInteger*) index {
+//  NSLog(@"Stock price received");
+//  NSString *dollarSignPrice = [NSString stringWithFormat:@"$%@", priceString];
+//  [self.stockPrices  addObject:dollarSignPrice];
+////  self.priceLabel.text = dollarSignPrice;
+//}
+//
+//-(void)stockFetchDidFailWithError: (NSError*) error rowIndex:(NSInteger*) index {
+//  [self.stockPrices  addObject:@" "];
+//}
+//
+//#pragma mark Optional Delegate Methods
+//
+//-(void)stockFetchDidFailWithError:(NSError *)error {
+//  NSLog(@"Couldn't fetch stock price, this is a description of the error:%@", error.localizedDescription);
+//  //do some sort of error handling here
+//}
+
+
+-(void)stockFetchSuccessWithPriceString:(NSArray *)priceArray{
+  NSLog(@"Stock price received");
+  self.stockPrices = [[NSMutableArray alloc] init];
+  for (NSDictionary *compStock in priceArray) {
+    NSLog(@"s");
+    NSString *price = [compStock objectForKey:@"lastSalePrice"];
+    [self.stockPrices addObject:price];
+    
+  }
+  [self.companyTableView reloadData];
+}
+
+
+#pragma mark Optional Delegate Methods
+
+-(void)stockFetchDidFailWithError:(NSError *)error {
+  NSLog(@"Couldn't fetch stock price, this is a description of the error:%@", error.localizedDescription);
+  //do some sort of error handling here
+}
+
+-(void)stockFetchDidStart {
+  NSLog(@"Initiating stock fetch...");
+  //could start an activity indicator here
+}
 
 
 // Override to support conditional editing of the table view.
@@ -186,17 +284,6 @@
   
   
 }
-
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 - (void)dealloc {
   

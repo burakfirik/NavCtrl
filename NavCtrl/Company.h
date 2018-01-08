@@ -8,7 +8,7 @@
 @property (nonatomic, retain) UIImage* logo;
 @property (nonatomic, retain) NSMutableArray * products;
 @property (nonatomic, retain) NSString* stockTick;
-
+@property (nonatomic, retain) NSString* stockPrice;
 
 - (instancetype) initName: (NSString*) name
                      logo: (NSString*) logo

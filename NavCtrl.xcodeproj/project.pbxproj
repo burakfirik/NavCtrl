@@ -32,6 +32,7 @@
 		AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632520023D1300F45B43 /* ProductEditVC.m */; };
 		AEE7632E2003D68300F45B43 /* CompanyEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632C2003D68300F45B43 /* CompanyEditVC.m */; };
 		AEE763332003E07E00F45B43 /* WebViewEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE763312003E07E00F45B43 /* WebViewEditVC.m */; };
+		AEE763382003F92000F45B43 /* StockFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE763362003F92000F45B43 /* StockFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,9 @@
 		AEE7632C2003D68300F45B43 /* CompanyEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyEditVC.m; sourceTree = "<group>"; };
 		AEE763302003E07E00F45B43 /* WebViewEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewEditVC.h; sourceTree = "<group>"; };
 		AEE763312003E07E00F45B43 /* WebViewEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewEditVC.m; sourceTree = "<group>"; };
+		AEE763352003F92000F45B43 /* StockFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockFetcher.h; sourceTree = "<group>"; };
+		AEE763362003F92000F45B43 /* StockFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StockFetcher.m; sourceTree = "<group>"; };
+		AEE7633A2003F94A00F45B43 /* StockFetcherDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StockFetcherDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +245,9 @@
 				AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */,
 				AE8A1B801FFDE06000611A1E /* ProductWebVC.h */,
 				AE8A1B811FFDE06000611A1E /* ProductWebVC.m */,
+				AEE763352003F92000F45B43 /* StockFetcher.h */,
+				AEE763362003F92000F45B43 /* StockFetcher.m */,
+				AEE7633A2003F94A00F45B43 /* StockFetcherDelegate.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -354,6 +361,7 @@
 				AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */,
 				AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */,
 				AE7512D11FFD65F300F6217C /* Company.m in Sources */,
+				AEE763382003F92000F45B43 /* StockFetcher.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				AEE7632E2003D68300F45B43 /* CompanyEditVC.m in Sources */,
 				AAA5DEF21FFFDA2A00254A93 /* CompanyAddVC.m in Sources */,

@@ -5,9 +5,9 @@
 #import "CompanyDao.h"
 #import "CompanyAddVC.h"
 #import "CompanyEditVC.h"
+#import "StockFetcherDelegate.h"
 
-
-@interface CompanyVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface CompanyVC : UIViewController<UITableViewDelegate, UITableViewDataSource, StockFetcherDelegate>
 
 @property (nonatomic, retain) CompanyDao * dataAccessObject;
 @property (nonatomic, retain) UITableView *companyTableView;

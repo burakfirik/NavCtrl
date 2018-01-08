@@ -160,13 +160,13 @@
   if (self.productTableView .isEditing) {
     self.dataAccessObject.productEdit = YES;
     self.productEditViewController.company = self.company;
-    self.productEditViewController.deleteIndex = [[NSNumber alloc] initWithInt:indexPath.row];
+    self.productEditViewController.deleteIndex = @(indexPath.row);
     [self.navigationController pushViewController:self.productEditViewController animated:true];
   } else {
     WebViewEditVC *webViewEditVC = [[WebViewEditVC alloc] init];
     webViewEditVC.company = self.company;
     webViewEditVC.productURL = [[self.company.products objectAtIndex:indexPath.row] productURL];
-    webViewEditVC.deleteIndex = [NSNumber numberWithInt:indexPath.row];
+    webViewEditVC.deleteIndex = @(indexPath.row);
     [self.navigationController pushViewController:webViewEditVC animated:true];
   }
   

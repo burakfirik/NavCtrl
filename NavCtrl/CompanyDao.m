@@ -36,7 +36,7 @@
   Product* ipad = [[Product alloc] initName:@"iPad" productURL:@"http://www.apple.com/ipad/" productImage:@"ipad.png"];
   Product* ipod = [[Product alloc] initName:@"ipod Touch" productURL:@"http://www.apple.com/ipod/" productImage:@"ipod.png"];
   Product* iphone = [[Product alloc] initName:@"iPhone" productURL:@"http://www.apple.com/iphone/" productImage:@"iphone.png"];
-  Company *apple = [[Company alloc] initName:@"Apple" logo:@"apple.jpg" products:[[NSMutableArray alloc] initWithObjects:ipad, ipod, iphone, nil] stock: @"APPL"];
+  Company *apple = [[Company alloc] initName:@"Apple" logo:@"apple.jpg" products:[[NSMutableArray alloc] initWithObjects:ipad, ipod, iphone, nil] stock: @"AAPL"];
   self.companyList = [[NSMutableArray alloc] initWithObjects:g,tesla,apple, nil];
 }
 
