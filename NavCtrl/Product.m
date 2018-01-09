@@ -12,7 +12,17 @@
     self.productImage = [UIImage imageNamed:imageInput];
   }
   return self;
-  
+}
+
+-(instancetype) initName:(NSString *)givenName
+              productURL:(NSString *)givenURL
+            productImageURL:(NSString *)productImageURL {
+  if (self = [super init]) {
+    self.productName = givenName;
+    self.productURL = givenURL;
+    self.productImageURL = productImageURL;
+  }
+  return self;
 }
 
 -(instancetype) initName:(NSString *)givenName logo:(UIImage *)productLogo {

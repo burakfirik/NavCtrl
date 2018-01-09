@@ -38,6 +38,7 @@
     
     self.name = name;
     self.products = [[NSMutableArray alloc] init];
+    self.logoURL = url;
     NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
     UIImage *image = [[UIImage alloc] initWithData:imageData];
     if (image != nil) {
@@ -45,7 +46,7 @@
     } else {
       self.logo = [UIImage imageNamed:@"default"];
     }
-  
+  self.stockTick = stock;
     //self.logo = [UIImage imageNamed:@"google"];
     return self;
 }

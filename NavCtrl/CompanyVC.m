@@ -78,10 +78,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-  self.dataAccessObject.productAdd = NO;
-  self.dataAccessObject.companyAdd = NO;
-  self.dataAccessObject.productEdit = NO;
-  self.dataAccessObject.companyEdit = NO;
+ 
   [self.companyTableView  reloadData];
   [self loadStockPrices];
   

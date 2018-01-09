@@ -31,7 +31,7 @@
   [super viewDidLoad];
   self.middleTop = 250;
   self.bottomTop = 400;
-
+  
   UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonTapped)];
   UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonTapped)];
   self.navigationItem.rightBarButtonItem = saveButton;
@@ -81,35 +81,35 @@
 -(void) addTopViewConsraints {
   
   NSLayoutConstraint *topViewLeadingContraint = [NSLayoutConstraint
-                                                constraintWithItem:self.topView
-                                                attribute:NSLayoutAttributeLeading
-                                                relatedBy:NSLayoutRelationEqual
-                                                toItem:self.view
-                                                attribute:NSLayoutAttributeLeading                                                        multiplier:1.0
-                            constant:0];
+                                                 constraintWithItem:self.topView
+                                                 attribute:NSLayoutAttributeLeading
+                                                 relatedBy:NSLayoutRelationEqual
+                                                 toItem:self.view
+                                                 attribute:NSLayoutAttributeLeading                                                        multiplier:1.0
+                                                 constant:0];
   
-//
+  //
   NSLayoutConstraint *topViewTrailingContraint = [NSLayoutConstraint
-                                                 constraintWithItem:self.topView
-                                                 attribute:NSLayoutAttributeTrailing
-                                                 relatedBy:NSLayoutRelationEqual
-                                                 toItem:self.view
-                                                 attribute:NSLayoutAttributeTrailing                                                       multiplier:1.0
-                                                 constant:0];
+                                                  constraintWithItem:self.topView
+                                                  attribute:NSLayoutAttributeTrailing
+                                                  relatedBy:NSLayoutRelationEqual
+                                                  toItem:self.view
+                                                  attribute:NSLayoutAttributeTrailing                                                       multiplier:1.0
+                                                  constant:0];
   NSLayoutConstraint *topViewBottomContraint = [NSLayoutConstraint
-                                                 constraintWithItem:self.topView
-                                                 attribute:NSLayoutAttributeBottom
-                                                 relatedBy:NSLayoutRelationEqual
-                                                 toItem:self.view
-                                                 attribute:NSLayoutAttributeBottom                                                       multiplier:1.0
-                                                 constant:0];
-  NSLayoutConstraint *topViewTopContraint = [NSLayoutConstraint
                                                 constraintWithItem:self.topView
-                                                attribute:NSLayoutAttributeTop
+                                                attribute:NSLayoutAttributeBottom
                                                 relatedBy:NSLayoutRelationEqual
                                                 toItem:self.view
-                                                attribute:NSLayoutAttributeTop                                                     multiplier:1.0
-                                                constant:self.navigationController.navigationController.navigationBar.frame.size.height];
+                                                attribute:NSLayoutAttributeBottom                                                       multiplier:1.0
+                                                constant:0];
+  NSLayoutConstraint *topViewTopContraint = [NSLayoutConstraint
+                                             constraintWithItem:self.topView
+                                             attribute:NSLayoutAttributeTop
+                                             relatedBy:NSLayoutRelationEqual
+                                             toItem:self.view
+                                             attribute:NSLayoutAttributeTop                                                     multiplier:1.0
+                                             constant:self.navigationController.navigationController.navigationBar.frame.size.height];
   [NSLayoutConstraint activateConstraints:@[topViewLeadingContraint, topViewTrailingContraint, topViewTopContraint, topViewBottomContraint]];
   
 }
@@ -236,12 +236,11 @@
   if (comName != nil && comStock != nil && compImgURL != nil) {
     NSLog(@"Sel");
     Company *comp = [[Company alloc] initWithName:comName stockTick:comStock downloadURL:compImgURL];
-    [self.dataAccessObject.companyList addObject:comp];
-   [self.navigationController popViewControllerAnimated:true];
+    [self.dataAccessObject addNewCompany: comp];
+    [self.navigationController popViewControllerAnimated:true];
   } else {
     // Alert to user to fill all the fields
   }
-  
 }
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {

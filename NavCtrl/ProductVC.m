@@ -32,10 +32,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  self.dataAccessObject.productAdd = NO;
-  self.dataAccessObject.companyAdd = NO;
-  self.dataAccessObject.productEdit = NO;
-  self.dataAccessObject.companyEdit = NO;
   [self.productTableView reloadData];
 }
 
@@ -50,7 +46,6 @@
 }
 
 -(void)addButtonTapped {
-  self.dataAccessObject.productAdd = YES;
   ProductAddVC *productAddVC = [[ProductAddVC alloc] init];
   
   productAddVC.company = self.company;
@@ -160,7 +155,6 @@
   self.productEditViewController = [[ProductEditVC alloc]init];
   
   if (self.productTableView .isEditing) {
-    self.dataAccessObject.productEdit = YES;
     self.productEditViewController.company = self.company;
     self.productEditViewController.productEditIndex = (NSInteger*)(indexPath.row);
     self.productEditViewController.companyEditIndex = self.companyAddIndex;

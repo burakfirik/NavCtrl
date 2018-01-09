@@ -9,6 +9,7 @@
 @property (nonatomic, retain) NSMutableArray * products;
 @property (nonatomic, retain) NSString* stockTick;
 @property (nonatomic, retain) NSString* stockPrice;
+@property (nonatomic, retain) NSString* logoURL;
 
 - (instancetype) initName: (NSString*) name
                      logo: (NSString*) logo

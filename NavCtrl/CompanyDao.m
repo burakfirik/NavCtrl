@@ -8,19 +8,25 @@
   static CompanyDao * sharedManager = nil;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
+
     sharedManager = [[self alloc] init];
-    [sharedManager createCompanyAndProduct];
+    sharedManager.navControllerAppDelegate = (NavControllerAppDelegate *)[[UIApplication sharedApplication] delegate];
+    sharedManager.context = [sharedManager.navControllerAppDelegate managedObjectContext];
+    sharedManager.request = [NSFetchRequest fetchRequestWithEntityName:@"CompanyData"];
+    sharedManager.companyListManaged = [[NSMutableArray alloc] initWithArray:[sharedManager.context executeFetchRequest:sharedManager.request error:nil]];
+    
+   if (sharedManager.companyListManaged.count) {
+      [sharedManager loadCompaniesFromCoreData];
+    } else {
+      [sharedManager createCompanyAndProduct];
+    }
   });
   return sharedManager;
 }
 
 -(void) createCompanyAndProduct {
   
-  self.companyAdd = NO;
-  self.productAdd = NO;
-  self.companyEdit = NO;
-  self.productEdit = NO;
-  
+
   Product* pixel = [[Product alloc] initName:@"Pixel" productURL:@"https:store.google.com/product/pixel_phone" productImage:@"pixel.jpeg"];
   Product* nexus = [[Product alloc] initName:@"Nexus" productURL:@"https://www.google.com/nexus/" productImage:@"nexus.jpg"];
   Product* dream = [[Product alloc] initName:@"Daydream Device" productURL:@"https://vr.google.com/daydream/" productImage:@"daydream.jpg"];
@@ -71,5 +77,23 @@
     productToEdit.productImage = [UIImage imageNamed:@"default"];
   }
 }
+
+-(void)addNewCompany: (Company*)comp {
+  [self.companyList addObject:comp];
+}
+
+-(void)loadCompaniesFromCoreData{
+  self.companyList = [[NSMutableArray alloc] init];
+  for (Company *existingCompany in self.companyListManaged) {
+    Company *companyToAdd = [[Company alloc] initWithName:existingCompany.name stockTick:existingCompany.stockTick downloadURL:existingCompany.logoURL];
+    for (Product *product in existingCompany.products) {
+      Product *productToAdd = [[Product alloc] initName:product.productName productURL:product.productURL productImageURL:product.productImageURL];
+      [companyToAdd.products addObject:productToAdd];
+    }
+    [self.companyList addObject:companyToAdd];
+  }
+}
+
+
 
 @end
