@@ -28,6 +28,8 @@
 		AE7512D11FFD65F300F6217C /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7512D01FFD65F300F6217C /* Company.m */; };
 		AE8A1B7C1FFD690A00611A1E /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B7B1FFD690A00611A1E /* Product.m */; };
 		AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */; };
+		AE9EAA722005461F00E0444E /* CompanyModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE9EAA702005461F00E0444E /* CompanyModel.xcdatamodeld */; };
+		AE9EAA74200546AA00E0444E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE9EAA73200546AA00E0444E /* CoreData.framework */; };
 		AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632520023D1300F45B43 /* ProductEditVC.m */; };
 		AEE7632E2003D68300F45B43 /* CompanyEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632C2003D68300F45B43 /* CompanyEditVC.m */; };
 		AEE763332003E07E00F45B43 /* WebViewEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE763312003E07E00F45B43 /* WebViewEditVC.m */; };
@@ -77,6 +79,8 @@
 		AE8A1B7B1FFD690A00611A1E /* Product.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		AE8A1B7D1FFD77AA00611A1E /* CompanyDao.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDao.h; sourceTree = "<group>"; };
 		AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDao.m; sourceTree = "<group>"; };
+		AE9EAA712005461F00E0444E /* CompanyModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CompanyModel.xcdatamodel; sourceTree = "<group>"; };
+		AE9EAA73200546AA00E0444E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AEE7632420023D1300F45B43 /* ProductEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductEditVC.h; sourceTree = "<group>"; };
 		AEE7632520023D1300F45B43 /* ProductEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductEditVC.m; sourceTree = "<group>"; };
 		AEE7632B2003D68300F45B43 /* CompanyEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyEditVC.h; sourceTree = "<group>"; };
@@ -93,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE9EAA74200546AA00E0444E /* CoreData.framework in Frameworks */,
 				48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */,
 				48A656B918163BF200746D36 /* UIKit.framework in Frameworks */,
 				48A656B518163BF200746D36 /* Foundation.framework in Frameworks */,
@@ -171,6 +176,7 @@
 		48A656B318163BF200746D36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE9EAA73200546AA00E0444E /* CoreData.framework */,
 				48A656B418163BF200746D36 /* Foundation.framework */,
 				48A656B618163BF200746D36 /* CoreGraphics.framework */,
 				48A656B818163BF200746D36 /* UIKit.framework */,
@@ -195,6 +201,7 @@
 		48A656BB18163BF200746D36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE9EAA702005461F00E0444E /* CompanyModel.xcdatamodeld */,
 				48A656BC18163BF200746D36 /* NavCtrl-Info.plist */,
 				48A656BD18163BF200746D36 /* InfoPlist.strings */,
 				48A656ED1816468000746D36 /* Sunflower.gif */,
@@ -347,6 +354,7 @@
 				AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */,
 				AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */,
 				AE7512D11FFD65F300F6217C /* Company.m in Sources */,
+				AE9EAA722005461F00E0444E /* CompanyModel.xcdatamodeld in Sources */,
 				AEE763382003F92000F45B43 /* StockFetcher.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				AEE7632E2003D68300F45B43 /* CompanyEditVC.m in Sources */,
@@ -586,6 +594,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AE9EAA702005461F00E0444E /* CompanyModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AE9EAA712005461F00E0444E /* CompanyModel.xcdatamodel */,
+			);
+			currentVersion = AE9EAA712005461F00E0444E /* CompanyModel.xcdatamodel */;
+			path = CompanyModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 48A656A918163BF200746D36 /* Project object */;
 }

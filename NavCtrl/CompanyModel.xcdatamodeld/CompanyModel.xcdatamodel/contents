@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C88" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <entity name="CompanyData" representedClassName="CompanyData" syncable="YES" codeGenerationType="class"/>
+    <entity name="CompanyData" representedClassName="CompanyData" syncable="YES" codeGenerationType="class">
+        <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stock" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="products" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductData" syncable="YES"/>
+    </entity>
+    <entity name="ProductData" representedClassName="ProductData" syncable="YES" codeGenerationType="class">
+        <attribute name="productImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productImg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductData" inverseName="company" inverseEntity="ProductData" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="CompanyData" positionX="-45" positionY="0" width="128" height="45"/>
+        <element name="CompanyData" positionX="-45" positionY="27" width="128" height="105"/>
+        <element name="ProductData" positionX="-45" positionY="0" width="128" height="105"/>
     </elements>
 </model>
