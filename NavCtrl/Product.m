@@ -4,7 +4,7 @@
 
 @implementation Product
 -(instancetype) initName:(NSString *)givenName
-                productURL:(NSString *)givenURL
+              productURL:(NSString *)givenURL
             productImage:(NSString *)imageInput {
   if (self = [super init]) {
     self.productName = givenName;
@@ -31,10 +31,4 @@
     self.productImage = [UIImage imageNamed:@"default"];
   }
 }
-
--(void) editProduct: (NSString *)newName productURL: (NSString*) prodURL imgURL: (NSString *) imgURL  {
-  
-  
-}
-
 @end

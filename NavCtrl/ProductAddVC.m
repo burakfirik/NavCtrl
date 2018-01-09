@@ -243,12 +243,12 @@
   NSString *prodName = [self.productNameTextField text];
   NSString *prodURL = [self.productURLTextField text];
   NSString *prodImgURL = [self.productImgURLTextField text];
-  
   if (prodName != nil && prodURL != nil && prodImgURL != nil) {
     NSLog(@"Sel");
     Product *prod = [[Product alloc] initName:prodName productURL:prodURL productImage:prodImgURL];
-    [self.company.products addObject:prod];
-     [self.navigationController popViewControllerAnimated:true];
+    CompanyDao *dataAccessObject = [CompanyDao sharedManager];
+    [dataAccessObject addProductToCompany:self.companyAddIndex product:prod];
+    [self.navigationController popViewControllerAnimated:true];
   } else {
     // Alert to user to fill all the fields
   }

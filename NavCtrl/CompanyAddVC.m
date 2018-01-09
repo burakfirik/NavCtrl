@@ -1,12 +1,3 @@
-
-//
-//  CompanyAddVC.m
-//  NavCtrl
-//
-//  Created by Aditya Narayan on 1/5/18.
-//  Copyright © 2018 Aditya Narayan. All rights reserved.
-//
-
 #import "CompanyAddVC.h"
 
 
@@ -38,12 +29,9 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  //NSNumber *val = [NSNumber numberWithUnsignedInt:200];
   self.middleTop = 250;
   self.bottomTop = 400;
-  
-  
-  
+
   UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonTapped)];
   UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonTapped)];
   self.navigationItem.rightBarButtonItem = saveButton;

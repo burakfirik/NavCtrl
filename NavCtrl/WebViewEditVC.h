@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSMutableArray *companyList;
 @property (nonatomic, retain) Company *company;
 @property (nonatomic, assign) NSNumber *deleteIndex;
+@property (nonatomic, assign) NSInteger* productIndex;
+@property (nonatomic, assign) NSInteger* companyIndex;
 
 @property(strong,nonatomic) WKWebView *webView;
 @property (strong, nonatomic) NSString *productURL;

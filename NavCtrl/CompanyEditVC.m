@@ -7,6 +7,7 @@
 //
 
 #import "CompanyEditVC.h"
+#import "CompanyDao.h"
 
 @interface CompanyEditVC ()
 
@@ -301,9 +302,11 @@
   
   if (compName != nil && compStock != nil &&compImgURL != nil) {
     NSLog(@"Sel");
+    CompanyDao *dataAccessObject = [CompanyDao sharedManager];
+    [dataAccessObject editCompany:compName stock:compStock compURL:compImgURL deleteAt: (self.deleteIndex)];
+    // Company *comp = self.company;
+    //[comp editCompany:compName stock:compStock compURL:compImgURL];
     
-    Company *comp = self.company;
-    [comp editCompany:compName stock:compStock compURL:compImgURL];
     [self.navigationController popViewControllerAnimated:true];
   } else {
     // Alert to user to fill all the fields

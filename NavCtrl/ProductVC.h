@@ -12,6 +12,7 @@
 @property (nonatomic, retain) ProductEditVC *productEditViewController;
 @property (nonatomic, retain) Company* company;
 @property (nonatomic, retain) CompanyDao* dataAccessObject;
+@property (nonatomic, assign) NSInteger* companyAddIndex;
 
 
 @end

@@ -36,8 +36,8 @@
 
 -(void) editButtonPressed {
   ProductEditVC *productEditVC = [[ProductEditVC alloc] init];
-  productEditVC.company = self.company;
-  productEditVC.deleteIndex = [NSNumber numberWithInt:self.deleteIndex.intValue];
+  productEditVC.productEditIndex = self.productIndex;
+  productEditVC.companyEditIndex = self.companyIndex;
   [self.navigationController pushViewController:productEditVC animated:true];
 }
 

@@ -28,7 +28,6 @@
 		AE7512D11FFD65F300F6217C /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7512D01FFD65F300F6217C /* Company.m */; };
 		AE8A1B7C1FFD690A00611A1E /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B7B1FFD690A00611A1E /* Product.m */; };
 		AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */; };
-		AE8A1B821FFDE06000611A1E /* ProductWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B811FFDE06000611A1E /* ProductWebVC.m */; };
 		AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632520023D1300F45B43 /* ProductEditVC.m */; };
 		AEE7632E2003D68300F45B43 /* CompanyEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632C2003D68300F45B43 /* CompanyEditVC.m */; };
 		AEE763332003E07E00F45B43 /* WebViewEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE763312003E07E00F45B43 /* WebViewEditVC.m */; };
@@ -78,8 +77,6 @@
 		AE8A1B7B1FFD690A00611A1E /* Product.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		AE8A1B7D1FFD77AA00611A1E /* CompanyDao.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDao.h; sourceTree = "<group>"; };
 		AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDao.m; sourceTree = "<group>"; };
-		AE8A1B801FFDE06000611A1E /* ProductWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductWebVC.h; sourceTree = "<group>"; };
-		AE8A1B811FFDE06000611A1E /* ProductWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductWebVC.m; sourceTree = "<group>"; };
 		AEE7632420023D1300F45B43 /* ProductEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductEditVC.h; sourceTree = "<group>"; };
 		AEE7632520023D1300F45B43 /* ProductEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductEditVC.m; sourceTree = "<group>"; };
 		AEE7632B2003D68300F45B43 /* CompanyEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyEditVC.h; sourceTree = "<group>"; };
@@ -185,7 +182,6 @@
 		48A656BA18163BF200746D36 /* NavCtrl */ = {
 			isa = PBXGroup;
 			children = (
-				AAA5DEEE1FFFD9EC00254A93 /* View */,
 				AE7512CE1FFD659E00F6217C /* Utils */,
 				483796CB1BCBF7A00062D5AB /* AppDelegate */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
@@ -227,13 +223,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		AAA5DEEE1FFFD9EC00254A93 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
 		AE7512CE1FFD659E00F6217C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,8 +232,6 @@
 				AE8A1B7B1FFD690A00611A1E /* Product.m */,
 				AE8A1B7D1FFD77AA00611A1E /* CompanyDao.h */,
 				AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */,
-				AE8A1B801FFDE06000611A1E /* ProductWebVC.h */,
-				AE8A1B811FFDE06000611A1E /* ProductWebVC.m */,
 				AEE763352003F92000F45B43 /* StockFetcher.h */,
 				AEE763362003F92000F45B43 /* StockFetcher.m */,
 				AEE7633A2003F94A00F45B43 /* StockFetcherDelegate.h */,
@@ -354,7 +341,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE8A1B7C1FFD690A00611A1E /* Product.m in Sources */,
-				AE8A1B821FFDE06000611A1E /* ProductWebVC.m in Sources */,
 				AA66997320001BD8005F9837 /* ProductAddVC.m in Sources */,
 				AEE763332003E07E00F45B43 /* WebViewEditVC.m in Sources */,
 				9E62FF211E4A33DC002D55B8 /* CompanyVC.m in Sources */,

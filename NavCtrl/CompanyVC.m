@@ -263,20 +263,15 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  
-  
   if (self.companyTableView .isEditing) {
-    self.dataAccessObject.companyEdit = YES;
     self.companyEditVC = [[CompanyEditVC alloc] init];
-    self.companyEditVC.company = [self.companyList objectAtIndex:indexPath.row];
+    self.companyEditVC.deleteIndex = (NSInteger*) (indexPath.row);
     [self.navigationController pushViewController:self.companyEditVC animated:true];
-    
   } else {
     self.productViewController = [[ProductVC alloc]init];
-    //self.productVC = [[ProductViewController alloc] init];
     Company* company = [self.dataAccessObject.companyList objectAtIndex:indexPath.row];
     self.productViewController.company = company;
-    //self.productVC.company = company;
+    self.productViewController.companyAddIndex = (NSInteger*) indexPath.row;
     [self.navigationController
      pushViewController:self.productViewController
      animated:YES];

@@ -55,7 +55,7 @@
   ProductAddVC *productAddVC = [[ProductAddVC alloc] init];
   
   productAddVC.company = self.company;
-  
+  productAddVC.companyAddIndex = self.companyAddIndex;
   [self.navigationController pushViewController:productAddVC animated:true];
   
 }
@@ -85,6 +85,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   static NSString *CellIdentifier = @"Cell";
+  
+ // [tableView registerClass:[UITableViewCell] forCellReuseIdentifier:<#(nonnull NSString *)#>]
+  
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -160,13 +163,15 @@
   if (self.productTableView .isEditing) {
     self.dataAccessObject.productEdit = YES;
     self.productEditViewController.company = self.company;
-    self.productEditViewController.deleteIndex = @(indexPath.row);
+    self.productEditViewController.productEditIndex = (NSInteger*)(indexPath.row);
+    self.productEditViewController.companyEditIndex = self.companyAddIndex;
     [self.navigationController pushViewController:self.productEditViewController animated:true];
   } else {
     WebViewEditVC *webViewEditVC = [[WebViewEditVC alloc] init];
     webViewEditVC.company = self.company;
     webViewEditVC.productURL = [[self.company.products objectAtIndex:indexPath.row] productURL];
-    webViewEditVC.deleteIndex = @(indexPath.row);
+    webViewEditVC.productIndex = (NSInteger *) indexPath.row;
+    webViewEditVC.companyIndex = (NSInteger *) self.companyAddIndex;
     [self.navigationController pushViewController:webViewEditVC animated:true];
   }
   

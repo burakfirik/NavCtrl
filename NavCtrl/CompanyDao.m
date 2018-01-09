@@ -41,4 +41,35 @@
 }
 
 
+-(void) editCompany:compName stock:(NSString*)compStock compURL:(NSString*)compImgURL deleteAt: (NSInteger*)deleteIndex {
+  Company *companyToEdit = [self.companyList objectAtIndex: (int)deleteIndex] ;
+  companyToEdit.name = compName;
+  companyToEdit.stockTick = compStock;
+  NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:compImgURL]];
+  UIImage *image = [[UIImage alloc] initWithData:imageData];
+  if (image != nil) {
+    companyToEdit.logo = image;
+  } else {
+    companyToEdit.logo = [UIImage imageNamed:@"default"];
+  }
+  
+}
+
+-(void) addProductToCompany:(NSInteger*)companyAddIndex product: (Product*)prod {
+  Company *company = [self.companyList objectAtIndex:(int)companyAddIndex];
+  [company.products addObject:prod];
+}
+
+-(void) editProduct: (NSInteger*)companyEditIndex prodIndex: (NSInteger*)productEditIndex name: (NSString*)prodName url:(NSString*)prodURL imgURL: (NSString*)prodImgURL {
+  Product *productToEdit = [[self.companyList objectAtIndex:(int)companyEditIndex].products objectAtIndex:(int)productEditIndex];
+  productToEdit.productName = prodName;
+  NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:prodImgURL]];
+  UIImage *image = [[UIImage alloc] initWithData:imageData];
+  if (image != nil) {
+    productToEdit.productImage = image;
+  } else {
+    productToEdit.productImage = [UIImage imageNamed:@"default"];
+  }
+}
+
 @end

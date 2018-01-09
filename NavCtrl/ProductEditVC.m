@@ -57,12 +57,12 @@
               forControlEvents:UIControlEventTouchUpInside];
   
   [self.deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-  
+  CompanyDao* dataAccessObject = [CompanyDao sharedManager];
   
   self.productStockTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
   self.productImgURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
   self.productNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
-  Product *prodToEdit = [self.company.products objectAtIndex:self.deleteIndex.integerValue];
+  Product *prodToEdit = [[dataAccessObject.companyList objectAtIndex:(int)(self.companyEditIndex)].products objectAtIndex:(int)(self.productEditIndex) ];
   self.productNameTextField.text = [prodToEdit productName];
   self.productStockTextField.text = [self.company stockTick];
   self.productImgURLTextField.text = [prodToEdit productURL];
@@ -289,16 +289,13 @@
 
 -(void) saveProductButtonTapped {
   NSString *prodName = [self.productNameTextField text];
-  NSString *prodStock = [self.productStockTextField text];
+  NSString *prodURL = [self.productStockTextField text];
   NSString *prodImgURL = [self.productImgURLTextField text];
   
-  if (prodName != nil && prodStock != nil && prodImgURL != nil) {
+  if (prodName != nil && prodURL != nil && prodImgURL != nil) {
     NSLog(@"Sel");
-    Product *prod = [self.company.products objectAtIndex:self.deleteIndex.integerValue];
-    [prod editProduct:prodName imgURL:prodImgURL];
-//    [[Product alloc] initName:prodName productURL:prodStock productImage:prodImgURL];
-//    Prodi
-//    [ addObject:prod];
+    CompanyDao *dataAccessObject = [CompanyDao sharedManager];
+    [dataAccessObject editProduct: self.companyEditIndex prodIndex: self.productEditIndex name: prodName url:prodURL imgURL: prodImgURL];
     [self.navigationController popViewControllerAnimated:true];
   } else {
     // Alert to user to fill all the fields

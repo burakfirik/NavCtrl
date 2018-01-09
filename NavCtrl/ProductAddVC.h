@@ -16,5 +16,6 @@
 @property (nonatomic, strong) CompanyDao* dataAccessObject;
 @property (nonatomic, retain) NSMutableArray *companyList;
 @property (nonatomic, retain) Company *company;
+@property (nonatomic) NSInteger* companyAddIndex;
 
 @end
