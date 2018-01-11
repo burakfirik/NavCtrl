@@ -9,9 +9,6 @@
 @property (nonatomic, strong) CompanyDao* dataAccessObject;
 @property (nonatomic, retain) NSMutableArray *companyList;
 
-
-
-
 -(void) cancelButtonTapped;
 -(void) saveButtonTapped;
 

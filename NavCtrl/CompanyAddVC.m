@@ -56,6 +56,10 @@
   self.topTextField.backgroundColor = [UIColor whiteColor];
   self.middleTextField.backgroundColor = [UIColor whiteColor];
   self.bottomTextField.backgroundColor = [UIColor whiteColor];
+  self.topTextField.placeholder = @"Company Name";
+  self.middleTextField.placeholder = @"Company Stock Tick";
+  self.bottomTextField.placeholder = @"Company Img URL";
+  
   
   [self.topView addSubview:self.topTextField];
   [self.topView addSubview:self.middleTextField];
@@ -235,8 +239,11 @@
   
   if (comName != nil && comStock != nil && compImgURL != nil) {
     NSLog(@"Sel");
-    Company *comp = [[Company alloc] initWithName:comName stockTick:comStock downloadURL:compImgURL];
-    [self.dataAccessObject addNewCompany: comp];
+    //Company *comp = [[Company alloc] initWithName:comName stockTick:comStock downloadURL:compImgURL];
+   // [self.dataAccessObject addNewCompany: comp];
+    
+    [self.dataAccessObject addNewCompany: comName stockTick:comStock downloadURL:compImgURL];
+    
     [self.navigationController popViewControllerAnimated:true];
   } else {
     // Alert to user to fill all the fields

@@ -4,16 +4,16 @@
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stock" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="products" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductData" syncable="YES"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProductData" inverseName="company" inverseEntity="ProductData" syncable="YES"/>
     </entity>
     <entity name="ProductData" representedClassName="ProductData" syncable="YES" codeGenerationType="class">
-        <attribute name="productImage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="productImg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductData" inverseName="company" inverseEntity="ProductData" syncable="YES"/>
+        <attribute name="productURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyData" inverseName="products" inverseEntity="CompanyData" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CompanyData" positionX="-45" positionY="27" width="128" height="105"/>
-        <element name="ProductData" positionX="-45" positionY="0" width="128" height="105"/>
+        <element name="CompanyData" positionX="-101" positionY="45" width="128" height="103"/>
+        <element name="ProductData" positionX="-324" positionY="20" width="128" height="105"/>
     </elements>
 </model>

@@ -1,10 +1,4 @@
-//
-//  ProductAddVC.m
-//  NavCtrl
-//
-//  Created by Aditya Narayan on 1/5/18.
-//  Copyright © 2018 Aditya Narayan. All rights reserved.
-//
+
 
 #import "ProductAddVC.h"
 
@@ -65,6 +59,10 @@
   self.productNameTextField.backgroundColor = [UIColor whiteColor];
   self.productURLTextField.backgroundColor = [UIColor whiteColor];
   self.productImgURLTextField.backgroundColor = [UIColor whiteColor];
+  
+  self.productURLTextField.placeholder = @"Product URL";
+  self.productNameTextField.placeholder = @"Product Name";
+  self.productImgURLTextField.placeholder = @"Product Img URL";
   
   [self.topView addSubview:self.productNameTextField];
   [self.topView addSubview:self.productURLTextField];
@@ -245,7 +243,7 @@
   NSString *prodImgURL = [self.productImgURLTextField text];
   if (prodName != nil && prodURL != nil && prodImgURL != nil) {
     NSLog(@"Sel");
-    Product *prod = [[Product alloc] initName:prodName productURL:prodURL productImage:prodImgURL];
+    Product *prod = [[Product alloc] initName:prodName productURL:prodURL productImageURL:prodImgURL];
     CompanyDao *dataAccessObject = [CompanyDao sharedManager];
     [dataAccessObject addProductToCompany:self.companyAddIndex product:prod];
     [self.navigationController popViewControllerAnimated:true];

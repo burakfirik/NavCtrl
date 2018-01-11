@@ -30,8 +30,6 @@
     } else {
       NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
       dispatch_async(dispatch_get_main_queue(), ^{
-        
-        //communicate with the delegate that we have succeeded in fetching a stock price and giving the delegate the stockprice for further processing
         [self.delegate stockFetchSuccessWithPriceString:json];
       });
     }

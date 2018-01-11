@@ -19,31 +19,34 @@
   self.stockFetcher = [[StockFetcher alloc]init];
   self.stockFetcher.delegate = self;
   
-  
-  
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
   
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)];
-  self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, addButton, nil];
   
+  UIBarButtonItem *undoButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoButtonTapped)];
+  
+  self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, addButton,undoButton, nil];
   self.companyTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
   
   self.navigationItem.leftBarButtonItem.tintColor = [UIColor clearColor];
   self.navigationItem.leftBarButtonItem.enabled = NO;
   
   self.dataAccessObject = [CompanyDao sharedManager];
+  if (self.dataAccessObject.companyList == nil) {
+    self.dataAccessObject.companyList = [[NSMutableArray alloc] init];
+  }
   self.companyList = self.dataAccessObject.companyList;
   [self loadStockPrices];
-  
   self.companyTableView .allowsSelectionDuringEditing = YES;
   self.companyTableView.delegate = self;
   self.companyTableView.dataSource = self;
-  
-  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCompanyVCTable) name:@"reloadCompanyVC" object:nil];
   [self.view addSubview:self.companyTableView];
-  
   self.title = @"Watch List";
-  
+}
+
+-(void) undoButtonTapped {
+  [self.dataAccessObject undo];
 }
 
 -(NSString*) getStocksString {
@@ -78,10 +81,17 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated {
- 
+  self.companyList = self.dataAccessObject.companyList;
   [self.companyTableView  reloadData];
   [self loadStockPrices];
   
+}
+
+-(void) reloadCompanyVCTable {
+  [self.companyList removeAllObjects];
+  self.companyList = [self.dataAccessObject companyList];
+  [self.companyTableView reloadData];
+  [self loadStockPrices];
 }
 
 
@@ -140,12 +150,16 @@
   
   cell.textLabel.text = company.name;
   cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
-  
-  UIImage* companyImage = company.logo;
-  
-  [companyImage drawInRect:CGRectMake(0, 0, 32, 32)];
-  
-  cell.imageView.image = companyImage;
+ 
+  [ cell.imageView.image drawInRect:CGRectMake(0, 0, 32, 32)];
+  NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:company.logoURL]];
+  cell.imageView.image = [[UIImage alloc] initWithData:imageData];
+  if (cell.imageView.image == nil) {
+   
+    NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://i.imgur.com/HBhdyQc.png"]];
+    cell.imageView.image = [[UIImage alloc] initWithData:imageData];
+   
+  }
   cell.imageView.clipsToBounds = YES;
   cell.imageView.frame = CGRectMake(0, 0, 40, 40);
   if (indexPath.row < self.stockPrices.count) {
@@ -191,14 +205,20 @@
   self.stockPrices = [[NSMutableArray alloc] init];
   for (NSDictionary *compStock in priceArray) {
     NSLog(@"s");
-    NSString *price = [compStock objectForKey:@"lastSalePrice"];
-    [self.stockPrices addObject:price];
-    
+    @try{
+      NSString *price = [compStock objectForKey:@"lastSalePrice"];
+      [self.stockPrices addObject:price];
+    }
+    @catch (NSException *exception){
+      NSLog(@"Stock has missing tick");
+    }    
   }
   [self.companyTableView reloadData];
 }
+      
 
 
+//[0]  (null)  @"error" : @"child \"symbols\" fails because [\"symbols\" is not allowed to be empty]"
 #pragma mark Optional Delegate Methods
 
 -(void)stockFetchDidFailWithError:(NSError *)error {
@@ -226,7 +246,8 @@
 {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     // Delete the row from the data source
-    [self.dataAccessObject.companyList removeObjectAtIndex:indexPath.row];
+   // [self.dataAccessObject.companyList removeObjectAtIndex:indexPath.row];
+    [self.dataAccessObject deleteCompany: (NSInteger*)(indexPath.row)];
     [self.companyTableView  reloadData];
   }
 }

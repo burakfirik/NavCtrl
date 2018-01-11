@@ -93,8 +93,18 @@
   cell.textLabel.text = product.productName;
   //cell.imageView.frame = CGRectMake(cell.imageView.frame.origin.x, cell.imageView.frame.origin.y, 10,10);
   
+  cell.imageView.image = [UIImage imageNamed:@"default"];
+//  NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:product.productImageURL]];
+//  UIImage *image = [[UIImage alloc] initWithData:imageData];
+//  if (image != nil) {
+//    cell.imageView.image = image;
+//  }
+   [cell.imageView.image drawInRect:CGRectMake(0, 0, 32, 32)];
+   cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:product.productImageURL]]];
+  if (cell.imageView.image == nil) {
+    cell.imageView.image = [UIImage imageNamed:@"default"];
+  }
   
-  cell.imageView.image = product.productImage;
   cell.imageView.clipsToBounds = YES;
   
   UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, UIScreen.mainScreen.scale);
@@ -120,7 +130,8 @@
 {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     // Delete the row from the data source
-    [self.company.products removeObjectAtIndex:indexPath.row];
+    //[self.company.products removeObjectAtIndex:indexPath.row];
+    [self.dataAccessObject removeProduct: (NSInteger*)self.companyAddIndex productIndex: (NSInteger*)indexPath.row];
     [self.productTableView reloadData];
   }
   else if (editingStyle == UITableViewCellEditingStyleInsert) {
@@ -165,7 +176,9 @@
     webViewEditVC.productURL = [[self.company.products objectAtIndex:indexPath.row] productURL];
     webViewEditVC.productIndex = (NSInteger *) indexPath.row;
     webViewEditVC.companyIndex = (NSInteger *) self.companyAddIndex;
+    
     [self.navigationController pushViewController:webViewEditVC animated:true];
+    NSLog(@"WEbview");
   }
   
   
