@@ -7,15 +7,15 @@
 #import "StockVC.h"
 
 @interface CompanyVC ()
-@property (strong, nonatomic) StockFetcher *stockFetcher;
-@property (strong, nonatomic) NSMutableArray *stockPrices;
+@property (retain, nonatomic) StockFetcher *stockFetcher;
+@property (retain, nonatomic) NSMutableArray *stockPrices;
 @end
 
 @implementation CompanyVC
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.stockFetcher = [[StockFetcher alloc]init];
+  _stockFetcher = [[StockFetcher alloc]init];
   self.stockFetcher.delegate = self;
   
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
@@ -25,17 +25,22 @@
   UIBarButtonItem *undoButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoButtonTapped)];
   
   self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, addButton,undoButton, nil];
-  self.companyTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
+  self.companyTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain] autorelease];
+  
+  
+  [editButton release];
+  [addButton release];
+  [undoButton release];
   
   self.navigationItem.leftBarButtonItem.tintColor = [UIColor clearColor];
   self.navigationItem.leftBarButtonItem.enabled = NO;
   
   self.dataAccessObject = [CompanyDao sharedManager];
   if (self.dataAccessObject.companyList == nil) {
-    self.dataAccessObject.companyList = [[NSMutableArray alloc] init];
+    self.dataAccessObject.companyList = [[[NSMutableArray alloc] init] autorelease];
   }
   self.companyList = self.dataAccessObject.companyList;
-  [self loadStockPrices];
+//  [self loadStockPrices];
   self.companyTableView .allowsSelectionDuringEditing = YES;
   self.companyTableView.delegate = self;
   self.companyTableView.dataSource = self;
@@ -48,13 +53,15 @@
     self.title = @"Watch List";
     self.companyTableView.hidden = NO;
   }
+  
+  
 }
 
 -(void) undoButtonTapped {
   [self.dataAccessObject undo];
 }
 
--(NSString*) getStocksString {
+-(NSMutableString*) getStocksString {
   NSMutableString *tickers = [[NSMutableString alloc] init];
   NSMutableArray* companyList = [[CompanyDao sharedManager] companyList];
   for (int i = 0; i < companyList.count; i++) {
@@ -73,15 +80,17 @@
       }
     }
   }
-  return [[NSString alloc] initWithString:tickers];
+  return [tickers autorelease];
 }
 
 -(void) loadStockPrices {
   //  NSString *tickerSymbol = self.tickerTextField.text;
   //  [self.stockFetcher fetchStockPriceForTicker:tickerSymbol];
+  
   NSString* ticks = [self getStocksString];
-  self.stockFetcher.companyTableView = self.companyTableView;
-  [self.stockFetcher fetchStockPriceForTicker:ticks];
+  _stockFetcher.companyTableView = self.companyTableView;
+  [_stockFetcher fetchStockPriceForTicker:ticks];
+  
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -120,7 +129,7 @@
 }
 - (void) addButtonTapped {
   NSLog(@"Add button Tapped");
-  self.companyAddViewController  = [[CompanyAddVC alloc] init];
+  self.companyAddViewController  = [[[CompanyAddVC alloc] init] autorelease];
   NSMutableArray* compList = self.dataAccessObject.companyList;
   self.companyAddViewController.companyList = compList;
   [self.navigationController pushViewController:self.companyAddViewController animated:YES];
@@ -149,7 +158,7 @@
   static NSString *CellIdentifier = @"Cell";
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
   
   Company* company = [self.dataAccessObject.companyList objectAtIndex:indexPath.row];
@@ -159,12 +168,18 @@
  
   [ cell.imageView.image drawInRect:CGRectMake(0, 0, 32, 32)];
   NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:company.logoURL]];
-  cell.imageView.image = [[UIImage alloc] initWithData:imageData];
+  UIImage *imageToAdd = [[UIImage alloc] initWithData:imageData];
+  cell.imageView.image = imageToAdd;
+  [imageToAdd release];
+  [imageData release];
   if (cell.imageView.image == nil) {
    
     NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://i.imgur.com/HBhdyQc.png"]];
-    cell.imageView.image = [[UIImage alloc] initWithData:imageData];
-   
+    UIImage *imageTo = [[UIImage alloc] initWithData:imageData];
+    cell.imageView.image = imageTo;
+    [imageData release];
+    [imageTo release];
+    
   }
   cell.imageView.clipsToBounds = YES;
   cell.imageView.frame = CGRectMake(0, 0, 40, 40);
@@ -177,7 +192,6 @@
   cell.preservesSuperviewLayoutMargins = false;
   cell.separatorInset = UIEdgeInsetsZero;
   cell.layoutMargins = UIEdgeInsetsZero;
-  [cell.imageView.image release];
   return cell;
 }
 
@@ -209,7 +223,17 @@
 
 -(void)stockFetchSuccessWithPriceString:(NSArray *)priceArray{
   NSLog(@"Stock price received");
-  self.stockPrices = [[NSMutableArray alloc] init];
+  
+  if(_stockPrices)[_stockPrices release];
+  
+  _stockPrices = [[NSMutableArray alloc] init];
+  
+
+ 
+ 
+//  _stockPrices = [[NSMutableArray alloc] init];
+  
+  
   for (NSDictionary *compStock in priceArray) {
     NSLog(@"s");
     @try{
@@ -220,7 +244,9 @@
       NSLog(@"Stock has missing tick");
     }    
   }
+  //[array release];
   [self.companyTableView reloadData];
+ 
 }
       
 
@@ -294,11 +320,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (self.companyTableView .isEditing) {
-    self.companyEditVC = [[CompanyEditVC alloc] init];
+    self.companyEditVC = [[[CompanyEditVC alloc] init] autorelease];
     self.companyEditVC.deleteIndex = (NSInteger*) (indexPath.row);
     [self.navigationController pushViewController:self.companyEditVC animated:true];
+   
   } else {
-    self.productViewController = [[ProductVC alloc]init];
+    self.productViewController = [[[ProductVC alloc]init] autorelease];
     Company* company = [self.dataAccessObject.companyList objectAtIndex:indexPath.row];
     self.productViewController.company = company;
     self.productViewController.companyAddIndex = (NSInteger*) indexPath.row;
@@ -312,17 +339,29 @@
 
 - (void)dealloc {
   [_productViewController release];
+  _productViewController = nil;
   [_twitterProducts release];
+  _productViewController = nil;
   [_stockPrices release];
+  _stockPrices = nil;
   [_teslaProducts release];
+  _teslaProducts = nil;
   [_companyList release];
+  _companyList = nil;
   [_appleProducts release];
+  _appleProducts = nil;
   [_dataAccessObject release];
+  _dataAccessObject = nil;
   [_companyEditVC release];
+  _companyEditVC = nil;
   [_companyTableView release];
+  _companyTableView = nil;
   [_companyAddViewController release];
+  _companyAddViewController = nil;
   [_stockFetcher release];
+  _stockFetcher  = nil;
   [_googleProducts release];
+  _googleProducts = nil;
   
   [super dealloc];
 }

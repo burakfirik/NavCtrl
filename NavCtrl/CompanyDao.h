@@ -14,8 +14,7 @@
 @property (retain, nonatomic) NSFetchRequest *request;
 @property (retain, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) NSManagedObjectModel *objectModel;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSPersistentStoreCoordinator *storeCoordinator;
+
 
 + (id) sharedManager;
 -(void) createCompanyAndProduct;

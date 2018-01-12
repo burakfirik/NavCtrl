@@ -15,10 +15,9 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
-  
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)];
   
-  self.productTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
+  self.productTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain] autorelease];
   //self.navigationItem.rightBarButtonItem = editButton;
   self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, addButton, nil];
   // Do any additional setup after loading the view from its nib.
@@ -27,6 +26,8 @@
   self.productTableView.dataSource = self;
   self.productTableView.allowsSelectionDuringEditing = YES;
   
+  [editButton release];
+  [addButton release];
   [self.view addSubview:self.productTableView];
 }
 
@@ -46,12 +47,11 @@
 }
 
 -(void)addButtonTapped {
-  ProductAddVC *productAddVC = [[ProductAddVC alloc] init];
+  ProductAddVC *productAddVC = [[[ProductAddVC alloc] init] autorelease];
   
   productAddVC.company = self.company;
   productAddVC.companyAddIndex = self.companyAddIndex;
   [self.navigationController pushViewController:productAddVC animated:true];
-  
 }
 
 
@@ -81,7 +81,7 @@
   
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
   }
   
   Product * product = [self.company.products objectAtIndex:indexPath.row];
@@ -97,7 +97,9 @@
 //    cell.imageView.image = image;
 //  }
    [cell.imageView.image drawInRect:CGRectMake(0, 0, 32, 32)];
-   cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:product.productImageURL]]];
+  
+   cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:product.productImageURL]]]  ;
+
   if (cell.imageView.image == nil) {
     cell.imageView.image = [UIImage imageNamed:@"default"];
   }
@@ -158,14 +160,16 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  self.productEditViewController = [[ProductEditVC alloc]init];
-  
+  ProductEditVC *pEditVC = [[ProductEditVC alloc]init];
+  self.productEditViewController = pEditVC;
+  [pEditVC  release];
   if (self.productTableView .isEditing) {
     self.productEditViewController.company = self.company;
     self.productEditViewController.productEditIndex = (NSInteger*)(indexPath.row);
     self.productEditViewController.companyEditIndex = self.companyAddIndex;
     [self.navigationController pushViewController:self.productEditViewController animated:true];
   } else {
+    
     WebViewEditVC *webViewEditVC = [[WebViewEditVC alloc] init];
     webViewEditVC.company = self.company;
     webViewEditVC.productURL = [[self.company.products objectAtIndex:indexPath.row] productURL];
@@ -182,12 +186,19 @@
 
 - (void)dealloc {
   [_products release];
+  _products = nil;
   [_company release];
+   _company = nil;
   [_productTableView release];
+   _productTableView = nil;
   [_productEditViewController release];
+   _productEditViewController = nil;
   [_dataAccessObject release];
+  _dataAccessObject = nil;
   [_productTableView release];
+   _productTableView = nil;
   [_productEditViewController release];
+   _productEditViewController = nil;
   [super dealloc];
 }
 @end

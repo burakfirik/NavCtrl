@@ -15,7 +15,7 @@
     sharedManager.navControllerAppDelegate = (NavControllerAppDelegate *)[[UIApplication sharedApplication] delegate];
     sharedManager.context = [sharedManager.navControllerAppDelegate managedObjectContext];
     sharedManager.request = [NSFetchRequest fetchRequestWithEntityName:@"CompanyData"];
-    sharedManager.companyDataList = [[NSMutableArray alloc] initWithArray:[sharedManager.context executeFetchRequest:sharedManager.request error:nil]];
+    sharedManager.companyDataList = [[[NSMutableArray alloc] initWithArray:[sharedManager.context executeFetchRequest:sharedManager.request error:nil]] autorelease];
     
     if (sharedManager.companyDataList.count) {
       [sharedManager loadCompaniesFromCoreData];
@@ -27,79 +27,83 @@
 }
 
 -(void) createCompanyAndProduct {
-  Product* pixel = [[Product alloc] initName:@"Pixel" productURL:@"https:store.google.com/product/pixel_phone" productImageURL:@"https://i.imgur.com/m6gspIF.jpg"];
+  Product* pixel = [[[Product alloc] initName:@"Pixel" productURL:@"https:store.google.com/product/pixel_phone" productImageURL:@"https://i.imgur.com/m6gspIF.jpg"] autorelease];
   
   ProductData *pixelData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   pixelData.productName = @"Pixel";
   pixelData.productURL = @"https:store.google.com/product/pixel_phone";
   pixelData.productImageURL = @"https://i.imgur.com/m6gspIF.jpg";
   
-  Product* nexus = [[Product alloc] initName:@"Nexus" productURL:@"https://www.google.com/nexus/" productImageURL:@"https://i.imgur.com/uqaQWsd.jpg"];
+  Product* nexus = [[[Product alloc] initName:@"Nexus" productURL:@"https://www.google.com/nexus/" productImageURL:@"https://i.imgur.com/uqaQWsd.jpg"] autorelease];
   ProductData *nexusData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   nexusData.productName = @"Nexus";
   nexusData.productURL = @"https://www.google.com/nexus/";
   nexusData.productImageURL = @"https://i.imgur.com/uqaQWsd.jpg";
   
-  Product* dream = [[Product alloc] initName:@"Daydream Device" productURL:@"https://vr.google.com/daydream/" productImageURL:@"https://i.imgur.com/Mq4d6XN.jpg"];
+  Product* dream = [[[Product alloc] initName:@"Daydream Device" productURL:@"https://vr.google.com/daydream/" productImageURL:@"https://i.imgur.com/Mq4d6XN.jpg"] autorelease];
   ProductData *dreamData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   dreamData.productName = @"Daydream Device";
   dreamData.productURL = @"https://vr.google.com/daydream/";
   dreamData.productImageURL = @"https://i.imgur.com/Mq4d6XN.jpg";
   
-  Company *g = [[Company alloc] initName:@"Google" logo:@"https://i.imgur.com/0mNt3ax.png" products:[[NSMutableArray alloc] initWithObjects:pixel, nexus, dream, nil] stock:@"GOOG"];
+  
+  NSMutableArray *prod = [[[NSMutableArray alloc] initWithObjects:pixel, nexus, dream, nil] autorelease];
+  Company *g = [[[Company alloc] initName:@"Google" logo:@"https://i.imgur.com/0mNt3ax.png" products: prod stock:@"GOOG"] autorelease];
   CompanyData *companyG = [NSEntityDescription insertNewObjectForEntityForName:@"CompanyData" inManagedObjectContext:self.context];
   
   companyG.name = g.name;
   companyG.logo = @"https://i.imgur.com/0mNt3ax.png";
   companyG.stock = @"GOOG";
   
-  companyG.products = [[NSSet alloc] initWithObjects:pixelData,nexusData,dreamData, nil];
+  companyG.products = [[[NSSet alloc] initWithObjects:pixelData,nexusData,dreamData, nil] autorelease];
   
-  Product* models = [[Product alloc] initName:@"Model S" productURL:@"https://www.tesla.com/models" productImageURL:@"https://i.imgur.com/gNuBMw8.png"];
+  Product* models = [[[Product alloc] initName:@"Model S" productURL:@"https://www.tesla.com/models" productImageURL:@"https://i.imgur.com/gNuBMw8.png"] autorelease];
+  
   ProductData *modelsData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   modelsData.productName = models.productName;
   modelsData.productURL = models.productURL;
   modelsData.productImageURL = models.productImageURL;
   
-  Product* modely = [[Product alloc] initName:@"Model Y" productURL:@"https://www.tesla.com/models" productImageURL:@"https://i.imgur.com/ptbOkTl.png"];
+  Product* modely = [[[Product alloc] initName:@"Model Y" productURL:@"https://www.tesla.com/models" productImageURL:@"https://i.imgur.com/ptbOkTl.png"] autorelease];
   ProductData *modelyData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   modelyData.productName = modely.productName;
   modelyData.productURL = modely.productURL;
   modelyData.productImageURL = modely.productImageURL;
   
-  Product* truck = [[Product alloc] initName:@"Semi" productURL:@"https://www.tesla.com/semi" productImageURL:@"https://i.imgur.com/cG8VCPf.png"];
+  Product* truck = [[[Product alloc] initName:@"Semi" productURL:@"https://www.tesla.com/semi" productImageURL:@"https://i.imgur.com/cG8VCPf.png"] autorelease];
   ProductData *truckData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   truckData.productName = truck.productName;
   truckData.productURL = truck.productURL;
   truckData.productImageURL = truck.productImageURL;
-  Company *tesla = [[Company alloc] initName:@"Tesla" logo:@"https://i.imgur.com/PX6Xpao.png" products:[[NSMutableArray alloc] initWithObjects:models, modely, truck, nil] stock:@"TSLA"];
+  NSMutableArray *teslaProd = [[[NSMutableArray alloc] initWithObjects:models, modely, truck, nil] autorelease];
+  Company *tesla = [[[Company alloc] initName:@"Tesla" logo:@"https://i.imgur.com/PX6Xpao.png" products:teslaProd stock:@"TSLA"] autorelease];
   CompanyData *companyT = [NSEntityDescription insertNewObjectForEntityForName:@"CompanyData" inManagedObjectContext:self.context];
   
   companyT.name = tesla.name;
   companyT.logo = @"https://i.imgur.com/PX6Xpao.png";
   companyT.stock = @"TSLA";
-  companyT.products = [[NSSet alloc] initWithObjects:modelsData, modelyData,truckData, nil];
+  companyT.products = [[[NSSet alloc] initWithObjects:modelsData, modelyData,truckData, nil] autorelease];
   
-  Product* ipad = [[Product alloc] initName:@"iPad" productURL:@"http://www.apple.com/ipad/" productImageURL:@"https://i.imgur.com/7sLcXKC.png"];
+  Product* ipad = [[[Product alloc] initName:@"iPad" productURL:@"http://www.apple.com/ipad/" productImageURL:@"https://i.imgur.com/7sLcXKC.png"] autorelease];
   ProductData *ipadData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   ipadData.productName = ipad.productName;
   ipadData.productURL = ipad.productURL;
   ipadData.productImageURL = ipad.productImageURL;
   
   
-  Product* ipod = [[Product alloc] initName:@"ipod Touch" productURL:@"http://www.apple.com/ipod/" productImageURL:@"https://i.imgur.com/7sLcXKC.png"];
+  Product* ipod = [[[Product alloc] initName:@"ipod Touch" productURL:@"http://www.apple.com/ipod/" productImageURL:@"https://i.imgur.com/7sLcXKC.png"] autorelease];
   ProductData *ipodData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   ipodData.productName = ipod.productName;
   ipodData.productURL = ipod.productURL;
   ipodData.productImageURL = ipod.productImageURL;
   
-  Product* iphone = [[Product alloc] initName:@"iPhone" productURL:@"http://www.apple.com/iphone/" productImageURL:@"https://i.imgur.com/7sLcXKC.png"];
+  Product* iphone = [[[Product alloc] initName:@"iPhone" productURL:@"http://www.apple.com/iphone/" productImageURL:@"https://i.imgur.com/7sLcXKC.png"] autorelease];
   ProductData *iphoneData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   iphoneData.productName = iphone.productName;
   iphoneData.productURL = iphone.productURL;
   iphoneData.productImageURL = iphone.productImageURL;
-  
-  Company *apple = [[Company alloc] initName:@"Apple" logo:@"https://i.imgur.com/sfAbBdz.png" products:[[NSMutableArray alloc] initWithObjects:ipad, ipod, iphone, nil] stock: @"AAPL"];
+  NSMutableArray *appleProd = [[[NSMutableArray alloc] initWithObjects:ipad, ipod, iphone, nil] autorelease];
+  Company *apple = [[[Company alloc] initName:@"Apple" logo:@"https://i.imgur.com/sfAbBdz.png" products:appleProd stock: @"AAPL"] autorelease];
   ProductData *appleData = [NSEntityDescription insertNewObjectForEntityForName:@"ProductData" inManagedObjectContext:self.context];
   appleData.productName = ipad.productName;
   appleData.productURL = iphone.productURL;
@@ -108,10 +112,10 @@
   companyA.name = apple.name;
   companyA.logo = @"https://i.imgur.com/sfAbBdz.png";
   companyA.stock = @"AAPL";
-  companyA.products = [[NSSet alloc] initWithObjects:ipadData, ipodData, iphoneData, nil];
+  companyA.products = [[[NSSet alloc] initWithObjects:ipadData, ipodData, iphoneData, nil] autorelease];
   
-  self.companyList = [[NSMutableArray alloc] initWithObjects:g,apple,tesla, nil];
-  self.companyDataList = [[NSMutableArray alloc] initWithObjects:companyG, companyA, nil];
+  _companyList = [[[NSMutableArray alloc] initWithObjects:g,apple,tesla, nil] autorelease];
+  self.companyDataList = [[[NSMutableArray alloc] initWithObjects:companyG, companyA, nil] autorelease];
   [self.navControllerAppDelegate saveContext];
 }
 
@@ -164,15 +168,15 @@
 }
 
 -(void) addNewCompany: (NSString*)comName stockTick:(NSString*)comStock downloadURL:(NSString*)compImgURL {
-  Company *newCompany = [[Company alloc] initWithName:comName stockTick:comStock downloadURL:compImgURL];
+  Company *newCompany = [[[Company alloc] initWithName:comName stockTick:comStock downloadURL:compImgURL] autorelease];
   [self.companyList addObject:newCompany];
-  CompanyData *companyToAdd = [NSEntityDescription insertNewObjectForEntityForName:@"CompanyData" inManagedObjectContext:self.context];
+  CompanyData *companyToAdd = [NSEntityDescription insertNewObjectForEntityForName:@"CompanyData" inManagedObjectContext:_context];
   [self.companyDataList addObject:companyToAdd];
   companyToAdd.name = comName;
   companyToAdd.logo = compImgURL;
   companyToAdd.stock = comStock;
-  companyToAdd.products = [[NSSet<ProductData*> alloc] init];
-  [self.navControllerAppDelegate saveContext];
+  companyToAdd.products = [[[NSSet<ProductData*> alloc] init] autorelease];
+  [_navControllerAppDelegate saveContext];
 }
 
 -(void)removeProduct: (NSInteger*)companyAddIndex productIndex: (NSInteger*)prodIndex {
@@ -190,7 +194,7 @@
   dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
     [self.context undo];
     [self.navControllerAppDelegate saveContext];
-    self.companyDataList = [[NSMutableArray alloc] initWithArray:[self.context executeFetchRequest:self.request error:nil]];
+    self.companyDataList = [[[NSMutableArray alloc] initWithArray:[self.context executeFetchRequest:self.request error:nil]] autorelease];
     dispatch_async(dispatch_get_main_queue(), ^(void){
       [self loadCompaniesFromCoreData];
       [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyVC" object:nil];
@@ -199,13 +203,13 @@
 }
 
 -(void)loadCompaniesFromCoreData{
-  self.companyList = [[NSMutableArray alloc] init];
+  _companyList = [[[NSMutableArray alloc] init] autorelease];
 
-  for (CompanyData *existingCompany in self.companyDataList) {
-    Company *companyToAdd = [[Company alloc] initWithName:existingCompany.name stockTick:existingCompany.stock downloadURL:existingCompany.logo];
-    companyToAdd.products = [[NSMutableArray alloc] init];
+  for (CompanyData *existingCompany in _companyDataList) {
+    Company *companyToAdd = [[[Company alloc] initWithName:existingCompany.name stockTick:existingCompany.stock downloadURL:existingCompany.logo] autorelease];
+    companyToAdd.products = [[[NSMutableArray alloc] init] autorelease];
     for (ProductData *product in existingCompany.products) {
-      Product *productToAdd = [[Product alloc] initName:product.productName productURL:product.productURL productImageURL:product.productImageURL];
+      Product *productToAdd = [[[Product alloc] initName:product.productName productURL:product.productURL productImageURL:product.productImageURL] autorelease];
       [companyToAdd.products addObject:productToAdd];
     }
     [self.companyList addObject:companyToAdd];
@@ -215,14 +219,19 @@
 - (void)dealloc
 {
   [_stockArray release];
-  [_storeCoordinator release];
+  _stockArray = nil;
   [_request release];
+  _request = nil;
   [_navControllerAppDelegate release];
+  _navControllerAppDelegate = nil;
   [_companyDataList release];
+  _companyDataList = nil;
   [_companyList release];
-  [_managedObjectContext release];
+  _companyList = nil;
   [_objectModel release];
+  _objectModel = nil;
   [_context  release];
+  _stockArray = nil;
   [super  dealloc];
 }
 

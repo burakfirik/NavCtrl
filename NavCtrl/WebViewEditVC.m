@@ -12,6 +12,8 @@
   [super viewDidLoad];
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editButtonPressed)];
   self.navigationItem.rightBarButtonItem = editButton;
+  [editButton release];
+  
 }
 
 -(void) editButtonPressed {
@@ -28,14 +30,14 @@
    NSURL *url = [NSURL URLWithString:self.productURL];
   if ([UIApplication.sharedApplication canOpenURL:url] ) {
     NSURLRequest *request = [NSURLRequest requestWithURL: url];
-    self.webView = [[WKWebView alloc]init] ;
-    self.webView.UIDelegate = self;
-    self.webView.navigationDelegate = self;
-    [self.webView loadRequest:request];
-    self.webView.frame = CGRectMake(0,self.navigationController.navigationBar.bounds.size.height,self.view.bounds.size.width, self.view.bounds.size.height);
-    [self.view addSubview:self.webView];
+    _webView = [[WKWebView alloc]init] ;
+    
+    _webView.UIDelegate = self;
+    _webView.navigationDelegate = self;
+    [_webView loadRequest:request];
+    _webView.frame = CGRectMake(0,self.navigationController.navigationBar.bounds.size.height,self.view.bounds.size.width, self.view.bounds.size.height);
+    [self.view addSubview:_webView];
     [self addWebViewConstraint];
-    [_webView release];    
   }
   
 }

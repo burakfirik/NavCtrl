@@ -46,39 +46,40 @@
   self.navigationItem.leftBarButtonItem = cancelButton;
   self.dataAccessObject = [CompanyDao sharedManager];
   
+  [saveButton release];
+  [cancelButton release];
   
   
+  _topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+  _topView.backgroundColor = [UIColor lightGrayColor];
   
-  self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
-  self.topView.backgroundColor = [UIColor lightGrayColor];
-  
-  self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 280, 200, 20)];
-  [self.deleteButton addTarget:self action:@selector(deleteButtonTapped)
+  _deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 280, 200, 20)];
+  [_deleteButton addTarget:self action:@selector(deleteButtonTapped)
               forControlEvents:UIControlEventTouchUpInside];
   
   [self.deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
   CompanyDao* dataAccessObject = [CompanyDao sharedManager];
   
-  self.productStockTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
-  self.productImgURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
-  self.productNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
+  _productStockTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
+  _productImgURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
+  _productNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
   Product *prodToEdit = [[dataAccessObject.companyList objectAtIndex:(int)(self.companyEditIndex)].products objectAtIndex:(int)(self.productEditIndex) ];
-  self.productNameTextField.text = [prodToEdit productName];
-  self.productStockTextField.text = [self.company stockTick];
-  self.productImgURLTextField.text = [prodToEdit productImageURL];
+  _productNameTextField.text = [prodToEdit productName];
+  _productStockTextField.text = [self.company stockTick];
+  _productImgURLTextField.text = [prodToEdit productImageURL];
   
-  self.productNameTextField.delegate = self;
-  self.productStockTextField.delegate = self;
-  self.productImgURLTextField.delegate = self;
+  _productNameTextField.delegate = self;
+  _productStockTextField.delegate = self;
+  _productImgURLTextField.delegate = self;
   
-  self.productNameTextField.backgroundColor = [UIColor whiteColor];
-  self.productStockTextField.backgroundColor = [UIColor whiteColor];
-  self.productImgURLTextField.backgroundColor = [UIColor whiteColor];
+  _productNameTextField.backgroundColor = [UIColor whiteColor];
+  _productStockTextField.backgroundColor = [UIColor whiteColor];
+  _productImgURLTextField.backgroundColor = [UIColor whiteColor];
   
-  [self.topView addSubview:self.productNameTextField];
-  [self.topView addSubview:self.productStockTextField];
-  [self.topView addSubview:self.productImgURLTextField];
-  [self.topView addSubview:self.deleteButton];
+  [_topView addSubview:_productNameTextField];
+  [_topView addSubview:_productStockTextField];
+  [_topView addSubview:_productImgURLTextField];
+  [_topView addSubview:_deleteButton];
   self.title = @"Edit Product";
   
   

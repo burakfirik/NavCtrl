@@ -7,6 +7,7 @@
 #import "CompanyEditVC.h"
 #import "StockFetcherDelegate.h"
 
+
 @interface CompanyVC : UIViewController<UITableViewDelegate, UITableViewDataSource, StockFetcherDelegate>
 
 @property (nonatomic, retain) CompanyDao * dataAccessObject;
@@ -15,6 +16,7 @@
 @property (nonatomic, retain) ProductVC *productViewController;
 @property (nonatomic, retain) CompanyAddVC *companyAddViewController;
 @property (nonatomic, retain) CompanyEditVC *companyEditVC;
+
 
 
 @property (nonatomic, retain) NSMutableArray* appleProducts;

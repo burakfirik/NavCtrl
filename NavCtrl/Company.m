@@ -1,7 +1,4 @@
-
-
 #import "Company.h"
-
 
 @implementation Company
 
@@ -23,12 +20,12 @@
                  downloadURL: (NSString*) url {
   
   if (self = [self init]) {
-    self.name = name;
-    self.products = [[NSMutableArray alloc] init];
-    self.logoURL = url;
-    self.stockTick = stock;
+    _name = [name retain];
+    _products = [[NSMutableArray alloc] init];
+    _logoURL = [url retain];
+    _stockTick = [stock retain];
   }
-    return self;
+  return self;
 }
 
 
@@ -50,13 +47,22 @@
 - (void)dealloc
 {
   [_products release];
+  _products = nil;
+  
   [_logo release];
+  _logo = nil;
   [_name release];
+  _name = nil;
   [_stockPrice release];
+  _stockPrice = nil;
   [_stockTick release];
+  _stockTick = nil;
   [_products release];
+  _products = nil;
   [_logoURL release];
+  _logoURL = nil;
   [_products release];
+  _products = nil;
   
   [super dealloc];
 }

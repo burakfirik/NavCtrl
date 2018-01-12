@@ -51,19 +51,21 @@
   
   
   
-  self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
-  self.topView.backgroundColor = [UIColor lightGrayColor];
+  _topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+  UIColor *backColor = [UIColor lightGrayColor];
+  _topView.backgroundColor = backColor;
+
+  _deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 280, 200, 20)];
   
-  self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 280, 200, 20)];
   [self.deleteButton addTarget:self action:@selector(deleteButtonTapped)
               forControlEvents:UIControlEventTouchUpInside];
   
   [self.deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
   
   
-  self.companyStockTickTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
-  self.companyImgURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
-  self.companyNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
+  _companyStockTickTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
+  _companyImgURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
+  _companyNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
   
   self.companyNameTextField.text = [self.company name];
   self.companyStockTickTextField.text = [self.company stockTick];
@@ -377,6 +379,10 @@
   [_companyNameTextField release];
   [_companyStockTickTextField release];
   [_companyImgURLTextField release];
+  [_company release];
+  [_dataAccessObject release];
+  [_deleteButton release];
+  
   [super dealloc];
 }
 @end

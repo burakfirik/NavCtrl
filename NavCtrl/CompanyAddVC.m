@@ -41,39 +41,39 @@
   
   
   
-  self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
-  self.topView.backgroundColor = [UIColor lightGrayColor];
+  _topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+  _topView.backgroundColor = [UIColor lightGrayColor];
   
   
-  self.topTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
-  self.middleTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
-  self.bottomTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
+  _topTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
+  _middleTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
+  _bottomTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
   
   self.topTextField.delegate = self;
-  self.middleTextField.delegate = self;
-  self.bottomTextField.delegate = self;
+  _middleTextField.delegate = self;
+  _bottomTextField.delegate = self;
   
-  self.topTextField.backgroundColor = [UIColor whiteColor];
-  self.middleTextField.backgroundColor = [UIColor whiteColor];
-  self.bottomTextField.backgroundColor = [UIColor whiteColor];
-  self.topTextField.placeholder = @"Company Name";
-  self.middleTextField.placeholder = @"Company Stock Tick";
-  self.bottomTextField.placeholder = @"Company Img URL";
+  _topTextField.backgroundColor = [UIColor whiteColor];
+  _middleTextField.backgroundColor = [UIColor whiteColor];
+  _bottomTextField.backgroundColor = [UIColor whiteColor];
+  _topTextField.placeholder = @"Company Name";
+  _middleTextField.placeholder = @"Company Stock Tick";
+  _bottomTextField.placeholder = @"Company Img URL";
   
   
-  [self.topView addSubview:self.topTextField];
-  [self.topView addSubview:self.middleTextField];
-  [self.topView addSubview:self.bottomTextField];
+  [_topView addSubview:_topTextField];
+  [_topView addSubview:_middleTextField];
+  [_topView addSubview:_bottomTextField];
   self.title = @"Add Company";
   
   
-  [self.view addSubview:self.topView];
+  [self.view addSubview:_topView];
   // Do any additional setup after loading the view from its nib.
   
-  self.topView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.topTextField.translatesAutoresizingMaskIntoConstraints = NO;
-  self.middleTextField.translatesAutoresizingMaskIntoConstraints = NO;
-  self.bottomTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  _topView.translatesAutoresizingMaskIntoConstraints = NO;
+  _topTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  _middleTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  _bottomTextField.translatesAutoresizingMaskIntoConstraints = NO;
   [self addTopViewConsraints];
   [self addTopTextFieldContraints];
   [self addMiddleTextFieldContraints: 300];
@@ -85,7 +85,7 @@
 -(void) addTopViewConsraints {
   
   NSLayoutConstraint *topViewLeadingContraint = [NSLayoutConstraint
-                                                 constraintWithItem:self.topView
+                                                 constraintWithItem:_topView
                                                  attribute:NSLayoutAttributeLeading
                                                  relatedBy:NSLayoutRelationEqual
                                                  toItem:self.view
@@ -94,21 +94,21 @@
   
   //
   NSLayoutConstraint *topViewTrailingContraint = [NSLayoutConstraint
-                                                  constraintWithItem:self.topView
+                                                  constraintWithItem:_topView
                                                   attribute:NSLayoutAttributeTrailing
                                                   relatedBy:NSLayoutRelationEqual
                                                   toItem:self.view
                                                   attribute:NSLayoutAttributeTrailing                                                       multiplier:1.0
                                                   constant:0];
   NSLayoutConstraint *topViewBottomContraint = [NSLayoutConstraint
-                                                constraintWithItem:self.topView
+                                                constraintWithItem:_topView
                                                 attribute:NSLayoutAttributeBottom
                                                 relatedBy:NSLayoutRelationEqual
                                                 toItem:self.view
                                                 attribute:NSLayoutAttributeBottom                                                       multiplier:1.0
                                                 constant:0];
   NSLayoutConstraint *topViewTopContraint = [NSLayoutConstraint
-                                             constraintWithItem:self.topView
+                                             constraintWithItem:_topView
                                              attribute:NSLayoutAttributeTop
                                              relatedBy:NSLayoutRelationEqual
                                              toItem:self.view
@@ -120,28 +120,28 @@
 
 -(void) addTopTextFieldContraints {
   NSLayoutConstraint *topTextFieldLeadingContraints = [NSLayoutConstraint
-                                                       constraintWithItem:self.topTextField
+                                                       constraintWithItem:_topTextField
                                                        attribute:NSLayoutAttributeLeading
                                                        relatedBy:NSLayoutRelationEqual
-                                                       toItem:self.topView
+                                                       toItem:_topView
                                                        attribute:NSLayoutAttributeLeading                                                        multiplier:1.0
                                                        constant:30];
   NSLayoutConstraint *topTextFieldTrailingContraints = [NSLayoutConstraint
-                                                        constraintWithItem:self.topTextField
+                                                        constraintWithItem:_topTextField
                                                         attribute:NSLayoutAttributeTrailing
                                                         relatedBy:NSLayoutRelationEqual
-                                                        toItem:self.topView
+                                                        toItem:_topView
                                                         attribute:NSLayoutAttributeTrailing                                                        multiplier:1.0
                                                         constant:-30];
   NSLayoutConstraint *topTextFieldTopContraints = [NSLayoutConstraint
-                                                   constraintWithItem:self.topTextField
+                                                   constraintWithItem:_topTextField
                                                    attribute:NSLayoutAttributeTop
                                                    relatedBy:NSLayoutRelationEqual
-                                                   toItem:self.topView
+                                                   toItem:_topView
                                                    attribute:NSLayoutAttributeTop                                                       multiplier:1.0
                                                    constant:self.navigationController.navigationBar.frame.size.height + 70];
   NSLayoutConstraint *topTextFieldBottomContraints = [NSLayoutConstraint
-                                                      constraintWithItem:self.topTextField
+                                                      constraintWithItem:_topTextField
                                                       attribute:NSLayoutAttributeHeight
                                                       relatedBy:NSLayoutRelationEqual
                                                       toItem:nil

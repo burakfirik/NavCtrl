@@ -7,24 +7,27 @@
               productURL:(NSString *)givenURL
          productImageURL:(NSString *)imageURL {
   if (self = [super init]) {
-    self.productName = givenName;
-    self.productURL = givenURL;
-    self.productImageURL = imageURL;
+    _productName = [givenName retain];;
+    _productURL = [givenURL retain];
+    _productImageURL = [imageURL retain];
   }
   return self;
 }
 
 
 -(void) editProduct: (NSString *)newName imgURL: (NSString *) imgUrl{
-  self.productName = newName;
-  self.productImageURL = imgUrl;
+  _productName = [newName retain];
+  _productImageURL = [imgUrl retain];
 }
 
 - (void)dealloc
 {
   [_productImageURL release];
+  _productImageURL = nil;
   [_productName release];
+   _productName = nil;
   [_productURL release];
+   _productURL = nil;
   [super dealloc];
 }
 

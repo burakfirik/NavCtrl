@@ -44,39 +44,39 @@
   
   
   
-  self.topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
-  self.topView.backgroundColor = [UIColor lightGrayColor];
+  _topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+  _topView.backgroundColor = [UIColor lightGrayColor];
   
   
-  self.productNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
-  self.productURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
-  self.productImgURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
+  _productNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 240, 200, 20)];
+  _productURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 200, 20)];
+  _productImgURLTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 120, 200, 20)];
   
-  self.productNameTextField.delegate = self;
-  self.productURLTextField.delegate = self;
-  self.productImgURLTextField.delegate = self;
+  _productNameTextField.delegate = self;
+  _productURLTextField.delegate = self;
+  _productImgURLTextField.delegate = self;
   
-  self.productNameTextField.backgroundColor = [UIColor whiteColor];
-  self.productURLTextField.backgroundColor = [UIColor whiteColor];
-  self.productImgURLTextField.backgroundColor = [UIColor whiteColor];
+  _productNameTextField.backgroundColor = [UIColor whiteColor];
+  _productURLTextField.backgroundColor = [UIColor whiteColor];
+  _productImgURLTextField.backgroundColor = [UIColor whiteColor];
   
-  self.productURLTextField.placeholder = @"Product URL";
-  self.productNameTextField.placeholder = @"Product Name";
-  self.productImgURLTextField.placeholder = @"Product Img URL";
+  _productURLTextField.placeholder = @"Product URL";
+  _productNameTextField.placeholder = @"Product Name";
+  _productImgURLTextField.placeholder = @"Product Img URL";
   
-  [self.topView addSubview:self.productNameTextField];
-  [self.topView addSubview:self.productURLTextField];
-  [self.topView addSubview:self.productImgURLTextField];
+  [_topView addSubview:self.productNameTextField];
+  [_topView addSubview:self.productURLTextField];
+  [_topView addSubview:self.productImgURLTextField];
   self.title = @"Add Product";
   
   
-  [self.view addSubview:self.topView];
+  [self.view addSubview:_topView];
   // Do any additional setup after loading the view from its nib.
   
-  self.topView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.productNameTextField.translatesAutoresizingMaskIntoConstraints = NO;
-  self.productURLTextField.translatesAutoresizingMaskIntoConstraints = NO;
-  self.productImgURLTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  _topView.translatesAutoresizingMaskIntoConstraints = NO;
+  _productNameTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  _productURLTextField.translatesAutoresizingMaskIntoConstraints = NO;
+  _productImgURLTextField.translatesAutoresizingMaskIntoConstraints = NO;
   [self addTopViewConsraints];
   [self addTopTextFieldContraints];
   [self addMiddleTextFieldContraints: 300];

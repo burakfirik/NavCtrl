@@ -8,14 +8,24 @@
 {
   
   // Override point for customization after application launch.
-  CompanyVC *rootController = [[CompanyVC alloc]init];
-  self.navigationController = [[UINavigationController alloc]
-                               initWithRootViewController:rootController];
+  CompanyVC *companyVC = [[CompanyVC alloc] init];
   
-  self.window = [[UIWindow alloc]
-                 initWithFrame:[[UIScreen mainScreen] bounds]];
-  [self.window setRootViewController:self.navigationController];
-  [self.window makeKeyAndVisible];
+  //CompanyVC *rootController = companyVC;
+ 
+  
+  if (_navigationController) [_navigationController release];
+  
+  UINavigationController *navCont = [[UINavigationController alloc]
+                                     initWithRootViewController:companyVC];
+
+  _navigationController = navCont;
+  UIWindow *mainWindow = [[UIWindow alloc]
+                      initWithFrame:[[UIScreen mainScreen] bounds]];
+  
+  _window = mainWindow;
+  [_window setRootViewController:_navigationController];
+  [_window makeKeyAndVisible];
+  [companyVC release];
   return YES;
   
   
@@ -106,11 +116,11 @@
     return nil;
   }
   _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-  
-  _managedObjectContext.undoManager = [[NSUndoManager alloc] init];
+  NSUndoManager *undoManager = [[NSUndoManager alloc] init];
+  _managedObjectContext.undoManager = undoManager;
   
   [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-  
+  [undoManager release];
   return _managedObjectContext;
 }
 
@@ -131,6 +141,10 @@
 - (void)dealloc
 {
   [_managedObjectModel release];
+  [_persistentStoreCoordinator release];
+  [_window release];
+  [_managedObjectContext release];
+  [_navigationController release];
   [super dealloc];
 }
 
