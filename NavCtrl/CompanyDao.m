@@ -156,7 +156,7 @@
   productToEdit.productImageURL = prodImgURL;
   CompanyData *companyData = [self.companyDataList objectAtIndex:(int)companyEditIndex];
   NSArray* productArray = [companyData.products  allObjects];
-  ProductData *productToEditData = [productArray objectAtIndex:(int)productToEdit];
+  ProductData *productToEditData = [productArray objectAtIndex:(int)productEditIndex];
   productToEditData.productName = prodName;
   productToEditData.productURL = prodURL;
   productToEditData.productImageURL = prodImgURL;
@@ -210,6 +210,20 @@
     }
     [self.companyList addObject:companyToAdd];
   }
+}
+
+- (void)dealloc
+{
+  [_stockArray release];
+  [_storeCoordinator release];
+  [_request release];
+  [_navControllerAppDelegate release];
+  [_companyDataList release];
+  [_companyList release];
+  [_managedObjectContext release];
+  [_objectModel release];
+  [_context  release];
+  [super  dealloc];
 }
 
 @end

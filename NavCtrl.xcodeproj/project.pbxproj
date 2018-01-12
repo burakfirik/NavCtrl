@@ -30,7 +30,6 @@
 		AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */; };
 		AE9EAA722005461F00E0444E /* CompanyModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE9EAA702005461F00E0444E /* CompanyModel.xcdatamodeld */; };
 		AE9EAA74200546AA00E0444E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE9EAA73200546AA00E0444E /* CoreData.framework */; };
-		AEB46C8F20070D8E00C614C4 /* ImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB46C8E20070D8E00C614C4 /* ImageFetcher.m */; };
 		AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632520023D1300F45B43 /* ProductEditVC.m */; };
 		AEE7632E2003D68300F45B43 /* CompanyEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE7632C2003D68300F45B43 /* CompanyEditVC.m */; };
 		AEE763332003E07E00F45B43 /* WebViewEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE763312003E07E00F45B43 /* WebViewEditVC.m */; };
@@ -82,9 +81,6 @@
 		AE8A1B7E1FFD77AA00611A1E /* CompanyDao.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDao.m; sourceTree = "<group>"; };
 		AE9EAA712005461F00E0444E /* CompanyModel.xcdatamodel */ = {isa = PBXFileReference; explicitFileType = wrapper.xcdatamodel; path = CompanyModel.xcdatamodel; sourceTree = "<group>"; };
 		AE9EAA73200546AA00E0444E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		AEB46C8D20070D8E00C614C4 /* ImageFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageFetcher.h; sourceTree = "<group>"; };
-		AEB46C8E20070D8E00C614C4 /* ImageFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageFetcher.m; sourceTree = "<group>"; };
-		AEB46C9020070DA800C614C4 /* ImageFetcherDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageFetcherDelegate.h; sourceTree = "<group>"; };
 		AEE7632420023D1300F45B43 /* ProductEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductEditVC.h; sourceTree = "<group>"; };
 		AEE7632520023D1300F45B43 /* ProductEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductEditVC.m; sourceTree = "<group>"; };
 		AEE7632B2003D68300F45B43 /* CompanyEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyEditVC.h; sourceTree = "<group>"; };
@@ -246,9 +242,6 @@
 				AEE763352003F92000F45B43 /* StockFetcher.h */,
 				AEE763362003F92000F45B43 /* StockFetcher.m */,
 				AEE7633A2003F94A00F45B43 /* StockFetcherDelegate.h */,
-				AEB46C8D20070D8E00C614C4 /* ImageFetcher.h */,
-				AEB46C8E20070D8E00C614C4 /* ImageFetcher.m */,
-				AEB46C9020070DA800C614C4 /* ImageFetcherDelegate.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -358,7 +351,6 @@
 				AA66997320001BD8005F9837 /* ProductAddVC.m in Sources */,
 				AEE763332003E07E00F45B43 /* WebViewEditVC.m in Sources */,
 				9E62FF211E4A33DC002D55B8 /* CompanyVC.m in Sources */,
-				AEB46C8F20070D8E00C614C4 /* ImageFetcher.m in Sources */,
 				AEE7632620023D1300F45B43 /* ProductEditVC.m in Sources */,
 				AE8A1B7F1FFD77AA00611A1E /* CompanyDao.m in Sources */,
 				AE7512D11FFD65F300F6217C /* Company.m in Sources */,

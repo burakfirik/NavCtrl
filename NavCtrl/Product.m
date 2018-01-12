@@ -19,4 +19,13 @@
   self.productName = newName;
   self.productImageURL = imgUrl;
 }
+
+- (void)dealloc
+{
+  [_productImageURL release];
+  [_productName release];
+  [_productURL release];
+  [super dealloc];
+}
+
 @end

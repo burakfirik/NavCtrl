@@ -324,10 +324,13 @@
  */
 
 - (void)dealloc {
-  [_topView release];
+ 
   [_topTextField release];
-  [_middleTextField release];
+  [_topView release];
   [_bottomTextField release];
+  [_companyList release];
+  [_middleTextField release];
+  [_dataAccessObject release];
   [super dealloc];
 }
 @end

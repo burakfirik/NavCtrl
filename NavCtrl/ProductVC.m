@@ -64,15 +64,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-  // Return the number of sections.
   return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-  // Return the number of rows in the section.
+
   return [self.company.products count];
 }
 
@@ -104,9 +101,7 @@
   if (cell.imageView.image == nil) {
     cell.imageView.image = [UIImage imageNamed:@"default"];
   }
-  
   cell.imageView.clipsToBounds = YES;
-  
   UIGraphicsBeginImageContextWithOptions(CGSizeMake(40, 40), NO, UIScreen.mainScreen.scale);
   [cell.imageView.image drawInRect:CGRectMake(0.0, 0.0, 40,40)];
   cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
@@ -178,16 +173,21 @@
     webViewEditVC.companyIndex = (NSInteger *) self.companyAddIndex;
     
     [self.navigationController pushViewController:webViewEditVC animated:true];
-    NSLog(@"WEbview");
+    [webViewEditVC release];
   }
-  
-  
 }
 
 
 
 
 - (void)dealloc {
+  [_products release];
+  [_company release];
+  [_productTableView release];
+  [_productEditViewController release];
+  [_dataAccessObject release];
+  [_productTableView release];
+  [_productEditViewController release];
   [super dealloc];
 }
 @end

@@ -128,5 +128,10 @@
   }
 }
 
+- (void)dealloc
+{
+  [_managedObjectModel release];
+  [super dealloc];
+}
 
 @end

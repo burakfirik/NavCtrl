@@ -15,7 +15,6 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
   self.stockFetcher = [[StockFetcher alloc]init];
   self.stockFetcher.delegate = self;
   
@@ -42,7 +41,13 @@
   self.companyTableView.dataSource = self;
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCompanyVCTable) name:@"reloadCompanyVC" object:nil];
   [self.view addSubview:self.companyTableView];
-  self.title = @"Watch List";
+  if (self.companyList.count == 0) {
+    self.title = @"Add Company";
+    self.companyTableView.hidden = YES;
+  } else {
+    self.title = @"Watch List";
+    self.companyTableView.hidden = NO;
+  }
 }
 
 -(void) undoButtonTapped {
@@ -77,11 +82,16 @@
   NSString* ticks = [self getStocksString];
   self.stockFetcher.companyTableView = self.companyTableView;
   [self.stockFetcher fetchStockPriceForTicker:ticks];
-  
 }
 
 -(void) viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
   self.companyList = self.dataAccessObject.companyList;
+  if (self.companyList.count > 0) {
+    self.companyTableView.hidden = NO;
+  } else {
+    self.companyTableView.hidden = YES;
+  }
   [self.companyTableView  reloadData];
   [self loadStockPrices];
   
@@ -126,15 +136,11 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-  // Return the number of sections.
   return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-  // Return the number of rows in the section.
   return [self.dataAccessObject.companyList count];
 }
 
@@ -171,6 +177,7 @@
   cell.preservesSuperviewLayoutMargins = false;
   cell.separatorInset = UIEdgeInsetsZero;
   cell.layoutMargins = UIEdgeInsetsZero;
+  [cell.imageView.image release];
   return cell;
 }
 
@@ -249,6 +256,11 @@
    // [self.dataAccessObject.companyList removeObjectAtIndex:indexPath.row];
     [self.dataAccessObject deleteCompany: (NSInteger*)(indexPath.row)];
     [self.companyTableView  reloadData];
+    if (self.companyList.count > 0) {
+      self.companyTableView.hidden = NO;
+    } else {
+      self.companyTableView.hidden = YES;
+    }
   }
 }
 
@@ -299,6 +311,18 @@
 }
 
 - (void)dealloc {
+  [_productViewController release];
+  [_twitterProducts release];
+  [_stockPrices release];
+  [_teslaProducts release];
+  [_companyList release];
+  [_appleProducts release];
+  [_dataAccessObject release];
+  [_companyEditVC release];
+  [_companyTableView release];
+  [_companyAddViewController release];
+  [_stockFetcher release];
+  [_googleProducts release];
   
   [super dealloc];
 }

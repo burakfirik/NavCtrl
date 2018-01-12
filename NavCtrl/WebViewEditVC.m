@@ -20,10 +20,11 @@
   productEditVC.companyEditIndex = self.companyIndex;
   productEditVC.company = self.company;
   [self.navigationController pushViewController:productEditVC animated:true];
+  [productEditVC release];
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-//   [self.navigationItem.rightBarButtonItem set];
+  [super viewWillAppear:true];
    NSURL *url = [NSURL URLWithString:self.productURL];
   if ([UIApplication.sharedApplication canOpenURL:url] ) {
     NSURLRequest *request = [NSURLRequest requestWithURL: url];
@@ -34,11 +35,13 @@
     self.webView.frame = CGRectMake(0,self.navigationController.navigationBar.bounds.size.height,self.view.bounds.size.width, self.view.bounds.size.height);
     [self.view addSubview:self.webView];
     [self addWebViewConstraint];
+    [_webView release];    
   }
   
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+  [super  viewDidAppear:true];
 }
 
 -(void) addWebViewConstraint {
@@ -54,6 +57,14 @@
   
 }
 
-
+- (void)dealloc
+{
+  [_productURL release];
+  [_company release];
+  [_companyList release];
+  [_webView release];
+  [_dataAccessObject release];
+  [super  dealloc];
+}
 
 @end

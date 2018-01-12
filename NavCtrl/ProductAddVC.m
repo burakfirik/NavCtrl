@@ -81,7 +81,7 @@
   [self addTopTextFieldContraints];
   [self addMiddleTextFieldContraints: 300];
   [self addBottomTextFieldContraints:400];
-  
+ 
   
 }
 
@@ -247,6 +247,7 @@
     CompanyDao *dataAccessObject = [CompanyDao sharedManager];
     [dataAccessObject addProductToCompany:self.companyAddIndex product:prod];
     [self.navigationController popViewControllerAnimated:true];
+    [prod release];
   } else {
     // Alert to user to fill all the fields
   }
@@ -331,6 +332,10 @@
   [_productNameTextField release];
   [_productURLTextField release];
   [_productImgURLTextField release];
+  [_dataAccessObject release];
+  [_company release];
+  [_companyList release];
+  [_productNameTextField release];
   [super dealloc];
 }
 @end

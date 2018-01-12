@@ -28,12 +28,22 @@
         });
       }
     } else {
-      NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+      
       dispatch_async(dispatch_get_main_queue(), ^{
+        NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         [self.delegate stockFetchSuccessWithPriceString:json];
       });
     }
   }];
+  //[urlString release];
+ 
   [task resume];
+  
+}
+- (void)dealloc
+{
+  [_delegate release];
+  [_companyTableView release];
+  [super dealloc];
 }
 @end

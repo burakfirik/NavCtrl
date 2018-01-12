@@ -65,7 +65,7 @@
   Product *prodToEdit = [[dataAccessObject.companyList objectAtIndex:(int)(self.companyEditIndex)].products objectAtIndex:(int)(self.productEditIndex) ];
   self.productNameTextField.text = [prodToEdit productName];
   self.productStockTextField.text = [self.company stockTick];
-  self.productImgURLTextField.text = [prodToEdit productURL];
+  self.productImgURLTextField.text = [prodToEdit productImageURL];
   
   self.productNameTextField.delegate = self;
   self.productStockTextField.delegate = self;
@@ -372,6 +372,11 @@
   [_productNameTextField release];
   [_productStockTextField release];
   [_productImgURLTextField release];
+  [_deleteButton release];
+  [_company release];
+  [_dataAccessObject release];
+  [_companyList release];
+  
   [super dealloc];
 }
 @end
