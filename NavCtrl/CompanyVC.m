@@ -15,22 +15,25 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
   _stockFetcher = [[StockFetcher alloc]init];
+  
   self.stockFetcher.delegate = self;
+  
   
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
   
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)];
+    
+  [self createUndoRedoButton];
   
-  UIBarButtonItem *undoButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoButtonTapped)];
-  
-  self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, addButton,undoButton, nil];
-  self.companyTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain] autorelease];
+  self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, addButton, nil];
+  self.companyTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - 40 - self.navigationController.navigationBar.bounds.size.height) style:UITableViewStylePlain] autorelease];
   
   
   [editButton release];
   [addButton release];
-  [undoButton release];
+  // [undoButton release];
   
   self.navigationItem.leftBarButtonItem.tintColor = [UIColor clearColor];
   self.navigationItem.leftBarButtonItem.enabled = NO;
@@ -40,15 +43,16 @@
     self.dataAccessObject.companyList = [[[NSMutableArray alloc] init] autorelease];
   }
   self.companyList = self.dataAccessObject.companyList;
-//  [self loadStockPrices];
+  //  [self loadStockPrices];
   self.companyTableView .allowsSelectionDuringEditing = YES;
   self.companyTableView.delegate = self;
   self.companyTableView.dataSource = self;
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCompanyVCTable) name:@"reloadCompanyVC" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCompanyVC) name:@"reloadCompanyVCTable" object:nil];
   [self.view addSubview:self.companyTableView];
   if (self.companyList.count == 0) {
     self.title = @"Add Company";
     self.companyTableView.hidden = YES;
+    [self.view setBackgroundColor:[UIColor grayColor]];
   } else {
     self.title = @"Watch List";
     self.companyTableView.hidden = NO;
@@ -57,8 +61,55 @@
   
 }
 
+-(void) createUndoRedoButton {
+  UIButton *undoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [undoButton setBackgroundColor:[UIColor grayColor]];
+  [undoButton  addTarget:self
+                  action:@selector(undoButtonTapped)
+        forControlEvents:UIControlEventTouchUpInside];
+  [undoButton  setTitle:@"Undo" forState:UIControlStateNormal];
+  undoButton .frame = CGRectMake(0, self.view.frame.size.height - 40, self.view.bounds.size.width / 2, 40.0);
+  
+  UIButton *redoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [redoButton setBackgroundColor:[UIColor grayColor]];
+  [redoButton  addTarget:self
+                  action:@selector(redoButtonTapped)
+        forControlEvents:UIControlEventTouchUpInside];
+  [redoButton  setTitle:@"Redo" forState:UIControlStateNormal];
+  redoButton .frame = CGRectMake(self.view.bounds.size.width / 2, self.view.frame.size.height - 40, self.view.bounds.size.width / 2, 40.0);
+  
+  [self.view addSubview:undoButton ];
+  [self.view addSubview:redoButton ];
+}
+
 -(void) undoButtonTapped {
-  [self.dataAccessObject undo];
+  [_dataAccessObject undo];
+  _companyList = _dataAccessObject.companyList;
+ 
+  if (self.companyList.count > 0) {
+    _companyTableView.hidden = NO;
+  }
+  [_companyTableView reloadData];
+  
+//  dispatch_async(dispatch_get_main_queue(), ^{
+//    [self.companyTableView reloadData];
+//
+//  });
+  //[self viewDidLoad];
+   [self viewWillAppear:true];
+  
+}
+
+-(void) redoButtonTapped {
+  [_dataAccessObject redo];
+  _companyList = _dataAccessObject.companyList;
+  
+  if (_companyList.count > 0) {
+    _companyTableView.hidden = NO;
+  }
+  [_companyTableView reloadData];
+  
+  [self viewWillAppear:true];
 }
 
 -(NSMutableString*) getStocksString {
@@ -106,11 +157,14 @@
   
 }
 
--(void) reloadCompanyVCTable {
-  [self.companyList removeAllObjects];
-  self.companyList = [self.dataAccessObject companyList];
-  [self.companyTableView reloadData];
+-(void) reloadCompanyVC {
+  _companyList = [_dataAccessObject companyList];
+  [_companyTableView reloadData];
+  if (_companyList.count > 0){
+    _companyTableView.hidden = NO;
+  }
   [self loadStockPrices];
+  
 }
 
 
@@ -165,15 +219,16 @@
   
   cell.textLabel.text = company.name;
   cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
- 
+  
   [ cell.imageView.image drawInRect:CGRectMake(0, 0, 32, 32)];
+  
   NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:company.logoURL]];
   UIImage *imageToAdd = [[UIImage alloc] initWithData:imageData];
   cell.imageView.image = imageToAdd;
   [imageToAdd release];
   [imageData release];
   if (cell.imageView.image == nil) {
-   
+    
     NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://i.imgur.com/HBhdyQc.png"]];
     UIImage *imageTo = [[UIImage alloc] initWithData:imageData];
     cell.imageView.image = imageTo;
@@ -201,25 +256,6 @@
 
 
 #pragma mark Required Delegate Methods
-//
-//-(void)stockFetchSuccessWithPriceString: (NSString*) priceString rowIndex: (NSInteger*) index {
-//  NSLog(@"Stock price received");
-//  NSString *dollarSignPrice = [NSString stringWithFormat:@"$%@", priceString];
-//  [self.stockPrices  addObject:dollarSignPrice];
-////  self.priceLabel.text = dollarSignPrice;
-//}
-//
-//-(void)stockFetchDidFailWithError: (NSError*) error rowIndex:(NSInteger*) index {
-//  [self.stockPrices  addObject:@" "];
-//}
-//
-//#pragma mark Optional Delegate Methods
-//
-//-(void)stockFetchDidFailWithError:(NSError *)error {
-//  NSLog(@"Couldn't fetch stock price, this is a description of the error:%@", error.localizedDescription);
-//  //do some sort of error handling here
-//}
-
 
 -(void)stockFetchSuccessWithPriceString:(NSArray *)priceArray{
   NSLog(@"Stock price received");
@@ -227,12 +263,6 @@
   if(_stockPrices)[_stockPrices release];
   
   _stockPrices = [[NSMutableArray alloc] init];
-  
-
- 
- 
-//  _stockPrices = [[NSMutableArray alloc] init];
-  
   
   for (NSDictionary *compStock in priceArray) {
     NSLog(@"s");
@@ -242,13 +272,12 @@
     }
     @catch (NSException *exception){
       NSLog(@"Stock has missing tick");
-    }    
+    }
   }
-  //[array release];
   [self.companyTableView reloadData];
- 
+  
 }
-      
+
 
 
 //[0]  (null)  @"error" : @"child \"symbols\" fails because [\"symbols\" is not allowed to be empty]"
@@ -277,11 +306,16 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (editingStyle == UITableViewCellEditingStyleDelete) {
+  if (indexPath.row < 0) {
+    return;
+  }
+  if (editingStyle == UITableViewCellEditingStyleDelete && indexPath.row < self.companyList.count) {
     // Delete the row from the data source
-   // [self.dataAccessObject.companyList removeObjectAtIndex:indexPath.row];
+    // [self.dataAccessObject.companyList removeObjectAtIndex:indexPath.row];
+    
     [self.dataAccessObject deleteCompany: (NSInteger*)(indexPath.row)];
     [self.companyTableView  reloadData];
+    [self loadStockPrices];
     if (self.companyList.count > 0) {
       self.companyTableView.hidden = NO;
     } else {
@@ -319,19 +353,21 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (self.companyTableView .isEditing) {
-    self.companyEditVC = [[[CompanyEditVC alloc] init] autorelease];
-    self.companyEditVC.deleteIndex = (NSInteger*) (indexPath.row);
+  if (self.companyTableView .isEditing ) {
+    _companyEditVC = [[CompanyEditVC alloc] init];
+    _companyEditVC.deleteIndex = (NSInteger*) (indexPath.row);
+    _companyEditVC.company =  [self.companyList objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:self.companyEditVC animated:true];
-   
+    [_companyEditVC release];
   } else {
-    self.productViewController = [[[ProductVC alloc]init] autorelease];
+    _productViewController = [[ProductVC alloc]init];
     Company* company = [self.dataAccessObject.companyList objectAtIndex:indexPath.row];
     self.productViewController.company = company;
     self.productViewController.companyAddIndex = (NSInteger*) indexPath.row;
     [self.navigationController
      pushViewController:self.productViewController
      animated:YES];
+    [_productViewController release];
   }
   
   

@@ -115,7 +115,7 @@
   companyA.products = [[[NSSet alloc] initWithObjects:ipadData, ipodData, iphoneData, nil] autorelease];
   
   _companyList = [[[NSMutableArray alloc] initWithObjects:g,apple,tesla, nil] autorelease];
-  self.companyDataList = [[[NSMutableArray alloc] initWithObjects:companyG, companyA, nil] autorelease];
+  self.companyDataList = [[[NSMutableArray alloc] initWithObjects:companyG, companyA,companyT, nil] autorelease];
   [self.navControllerAppDelegate saveContext];
 }
 
@@ -190,21 +190,42 @@
 }
 
 -(void)undo{
-  [self.companyList removeAllObjects];
+ // [self.companyList removeAllObjects];
   dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
     [self.context undo];
     [self.navControllerAppDelegate saveContext];
     self.companyDataList = [[[NSMutableArray alloc] initWithArray:[self.context executeFetchRequest:self.request error:nil]] autorelease];
     dispatch_async(dispatch_get_main_queue(), ^(void){
       [self loadCompaniesFromCoreData];
+      [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyVCTable" object:nil];
+      
+    });
+  });
+}
+
+-(void)redo{
+  // [self.companyList removeAllObjects];
+  dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+    [self.context redo];
+    [self.navControllerAppDelegate saveContext];
+    self.companyDataList = [[[NSMutableArray alloc] initWithArray:[self.context executeFetchRequest:self.request error:nil]] autorelease];
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+      [self loadCompaniesFromCoreData];
       [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadCompanyVC" object:nil];
+      
     });
   });
 }
 
 -(void)loadCompaniesFromCoreData{
-  _companyList = [[[NSMutableArray alloc] init] autorelease];
-
+  
+  if(_companyList){
+    [_companyList removeAllObjects];
+  }
+  else {
+    _companyList = [[NSMutableArray alloc] init];
+  }
+  
   for (CompanyData *existingCompany in _companyDataList) {
     Company *companyToAdd = [[[Company alloc] initWithName:existingCompany.name stockTick:existingCompany.stock downloadURL:existingCompany.logo] autorelease];
     companyToAdd.products = [[[NSMutableArray alloc] init] autorelease];
@@ -212,7 +233,7 @@
       Product *productToAdd = [[[Product alloc] initName:product.productName productURL:product.productURL productImageURL:product.productImageURL] autorelease];
       [companyToAdd.products addObject:productToAdd];
     }
-    [self.companyList addObject:companyToAdd];
+    [_companyList addObject:companyToAdd];
   }
 }
 

@@ -69,7 +69,7 @@
   
   self.companyNameTextField.text = [self.company name];
   self.companyStockTickTextField.text = [self.company stockTick];
-  self.companyImgURLTextField.text = @"Img Url";
+  self.companyImgURLTextField.text = [self.company logoURL];
   
   self.companyNameTextField.delegate = self;
   self.companyStockTickTextField.delegate = self;

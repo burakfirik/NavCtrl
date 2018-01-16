@@ -23,6 +23,7 @@
 -(void) editProduct: (NSInteger*)companyEditIndex prodIndex: (NSInteger*)productEditIndex name: (NSString*)prodName url:(NSString*)prodURL imgURL: (NSString*)prodImgURL;
 -(void)removeProduct: (NSInteger*)companyAddIndex productIndex: (NSInteger*)prodIndex;
 -(void)undo;
+-(void)redo;
 -(void) deleteCompany: (NSInteger*) deleteCompanyIndex;
 -(void) addNewCompany: (NSString*)comName stockTick:(NSString*)comStock downloadURL:(NSString*)compImgURL;
 

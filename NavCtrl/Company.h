@@ -21,6 +21,5 @@
                 stockTick: (NSString*) stock
                 downloadURL: (NSString*) url;
 
--(void) editCompany: (NSString *)compName stock: (NSString * )CompStock  compURL: (NSString *)compImgURL;
 
 @end

@@ -17,7 +17,14 @@
   UIBarButtonItem *editButton = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode)];
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)];
   
-  self.productTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain] autorelease];
+   UIView *companyProfileIUView = [[[UIView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, 250)] autorelease];
+   [companyProfileIUView setBackgroundColor:[UIColor grayColor]];
+  
+ 
+  
+ 
+  
+  self.productTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height + 250, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain] autorelease];
   //self.navigationItem.rightBarButtonItem = editButton;
   self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, addButton, nil];
   // Do any additional setup after loading the view from its nib.
@@ -28,6 +35,31 @@
   
   [editButton release];
   [addButton release];
+  [self.view addSubview:companyProfileIUView];
+  
+  
+  UIImageView *companyLogoImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(companyProfileIUView.frame.size.width / 2 - 50, companyProfileIUView.frame.size.height / 2 - 50, 100, 100)] autorelease];
+  
+  
+  [ companyLogoImageView.image drawInRect:CGRectMake(companyProfileIUView.frame.size.width / 2 - 50, companyProfileIUView.frame.size.height / 2 - 50, 100, 100)];
+  
+  NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.company.logoURL]];
+  UIImage *imageToAdd = [[UIImage alloc] initWithData:imageData];
+  companyLogoImageView.image = imageToAdd;
+  [imageToAdd release];
+  [imageData release];
+  if (companyLogoImageView.image == nil) {
+    
+    NSData *imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://i.imgur.com/HBhdyQc.png"]];
+    UIImage *imageTo = [[UIImage alloc] initWithData:imageData];
+    companyLogoImageView.image = imageTo;
+    [imageData release];
+    [imageTo release];
+    
+  }
+  companyLogoImageView.clipsToBounds = YES;
+  
+  [companyProfileIUView addSubview:companyLogoImageView];
   [self.view addSubview:self.productTableView];
 }
 

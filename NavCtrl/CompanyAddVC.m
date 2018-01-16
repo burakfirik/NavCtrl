@@ -32,6 +32,10 @@
   self.middleTop = 250;
   self.bottomTop = 400;
   
+ 
+  
+ 
+  
   UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonTapped)];
   UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonTapped)];
   self.navigationItem.rightBarButtonItem = saveButton;
@@ -251,7 +255,7 @@
 }
 
 -(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
   NSLog(@"Keyboard show");
   return YES;
 }
